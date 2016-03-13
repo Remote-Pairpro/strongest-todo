@@ -1,4 +1,4 @@
-# strongest-dodo
+# strongest-todo
 
 ## What's this
 
@@ -29,5 +29,5 @@
 
 ## Author
 
-+ kazuhito_m(https://twitter.com/kazuhito_m)
-+ HIDARI0415(https://twitter.com/HIDARI0415)
++ [kazuhito_m](https://twitter.com/kazuhito_m)
++ [HIDARI0415](https://twitter.com/HIDARI0415)
