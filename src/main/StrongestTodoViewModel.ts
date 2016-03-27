@@ -25,8 +25,9 @@ class StrongestTodoViewModel {
 
     // 画面上部の入力域の内容で、Todoを一つ足す。
     public addTodo() {
-        let todo = new Todo(this.newContent(),false);
-        this.todos.add(todo);
+        let content = this.newContent().trim();
+        if (content.length == 0) return;
+        this.todos.add(new Todo(content,false));
         this.newContent("");
     }
 
