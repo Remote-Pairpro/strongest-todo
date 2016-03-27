@@ -20,5 +20,6 @@ build:
         - sherzberg/slack-notify:
             subdomain: remote-pairpro
             token: $SLACK_TOKEN
-            channel: worklogs
+            channel: "#worklogs"
             username: wercker
+            icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
