@@ -32,7 +32,7 @@
 
 ## 参考
 
-[こちら](blob/master/doc/REFERENCE_PUBS.md)
+[こちら](./blob/master/doc/REFERENCE_PUBS.md)
 
 ## Author
 
