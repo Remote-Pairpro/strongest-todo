@@ -8,13 +8,17 @@ import ko = require('knockout');
 
 describe("StrongestTodo", () => {
 
+    // ヘルパ関数。StrongestTodo作成＆初期化。
+    function createSut(): StrongestTodo {
+        return new StrongestTodo(ko.observableArray([]));
+    }
+    
     it("Newできるか(テスト自体のサンプル品)", () => {
-        let actual = new StrongestTodo(ko.observableArray([]));
-        assert.notEqual(actual, null);
+        assert.notEqual(createSut(), null);
     });
 
     it("Todoを追加出来る", () => {
-        let sut = new StrongestTodo(ko.observableArray([]));
+        let sut = createSut();
         let todo = new Todo("会いたかった", true);
         assert.equal(sut.todoList().length, 0);
 
