@@ -27,6 +27,7 @@ class StrongestTodoViewModel {
     public addTodo() {
         let todo = new Todo(this.newContent(),false);
         this.todos.add(todo);
+        this.newContent("");
     }
 
 
