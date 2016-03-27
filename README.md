@@ -1,5 +1,10 @@
 # strongest-todo
 
+## Latest integration
+
++ master : [![wercker status](https://app.wercker.com/status/f9ee8765b165c3a14ecd98348da9692d/m/master "wercker status")](https://app.wercker.com/project/bykey/f9ee8765b165c3a14ecd98348da9692d) by Wercker
+
+
 ## What's this
 
 俺達が考える最強のTODOリスト！
