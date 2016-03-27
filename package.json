@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "test",
-    "start": "node_modules/.bin/electron ./app",
-    "build": "node ./src/build.js"
+    "start-electron": "node_modules/.bin/electron ./app",
+    "build-electron": "node ./src/build.js"
   },
   "repository": {
     "type": "git",
