@@ -7,3 +7,7 @@
 - http://phiary.me/electron-tutorial-try/
 - https://imfly.gitbooks.io/electron-docs-gitbook/content/jp/tutorial/application-distribution.html
 - https://github.com/electron-userland/electron-packager
+
+## Wercker系
+
+- http://qiita.com/shuhei/items/c295f061cba7b5f0d112
