@@ -7,7 +7,9 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node_modules/.bin/electron .",
+    "build": "node build.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/Remote-Pairpro/strongest-todo/issues"
   },
-  "homepage": "https://github.com/Remote-Pairpro/strongest-todo#readme"
+  "homepage": "https://github.com/Remote-Pairpro/strongest-todo#readme",
+  "devDependencies": {
+    "electron-packager": "^5.2.1",
+    "electron-prebuilt": "^0.37.2"
+  }
 }
