@@ -2,7 +2,7 @@ var packager = require('electron-packager');
 var config = require('./package.json');
 
 packager({  
-  dir: './',          // 対象
+  dir: './app',          // 対象
   out: './dist',      // 出力先
   name: config.name,  // 名前
   platform: 'linux', // darwin, linux, win32
@@ -10,7 +10,7 @@ packager({
   version: '0.34.2',  // electron のバージョン
   icon: './app.icns', // アイコン
 
-  'app-bundle-id': 'kazuhito-m.github.io', // ドメイン(TODO見直し	)
+  'app-bundle-id': 'kazuhito-m.github.io', // ドメイン(TODO見直し)
   'app-version': config.version,          // バージョン
 
   overwrite: true,  // 上書き
