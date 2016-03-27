@@ -144,7 +144,7 @@ gulp.task('upload-ghpages', function () {
 // githubの操作用トークンを変数から取るように成ってる。
 gulp.task('upload-ghpages-for-wercker', function () {
     return gulp.src('./app/**/*')
-        .pipe(ghPages({ remoteUrl: "https://$GITHUB_TOKEN@github.com/kazuhito-m/zundoko-kiyoshi-ts" }));
+        .pipe(ghPages({ remoteUrl: "https://$GITHUB_TOKEN@github.com/Remote-Pairpro/strongest-todo" }));
 });
 
 gulp.task('git-push', function () {
