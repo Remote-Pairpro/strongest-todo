@@ -18,6 +18,6 @@ build:
               npm run upload-ghpages-for-wercker
     after-steps:
         - sherzberg/slack-notify:
-            subdomain: wercker
+            subdomain: remote-pairpro
             token: $SLACK_TOKEN
             channel: worklogs
