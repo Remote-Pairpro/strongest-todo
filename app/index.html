@@ -30,9 +30,12 @@
     </header>
 
     <section class="container text-center">
-        <input type="text" data-bind='value: newContent' />
-        <button type="button text-center" class="btn btn-primary btn-lg" 
-            data-bind='click: addTodo, enable: newContent().length > 0'>追加</button>
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter TODO" data-bind='value: newContent' />
+                <button type="button text-center" class="btn btn-primary-outline btn-sm" data-bind='click: addTodo, enable: newContent().length > 0'>追加</button>
+            </div>
+        </form>
     </section>
 
     <section class="container text-center">
@@ -48,7 +51,7 @@
                         <th class="text-left ">内容</th>
                     </tr>
                 </thead>
-                <tbody  data-bind='foreach: todoList'>
+                <tbody data-bind='foreach: todoList'>
                     <tr>
                         <td class="text-center ">
                             <span data-bind="text: check "></span>
@@ -71,5 +74,6 @@
 
     <script type='text/javascript' src='js/app.js'></script>
 
-  </body>
+</body>
+
 </html>
