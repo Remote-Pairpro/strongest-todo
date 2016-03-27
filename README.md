@@ -30,6 +30,10 @@
 - doneにしたあとで一定時間で復活したりするタスク
   - 定期的に発生する？の表現
 
+## プレビュー版常時アップロードページ
+
+- [http://remote-pairpro.github.io/strongest-todo/](http://remote-pairpro.github.io/strongest-todo/)
+
 ## 参考
 
 [こちら](./doc/REFERENCE_PUBS.md)
