@@ -11,3 +11,7 @@
 ## Wercker系
 
 - http://qiita.com/shuhei/items/c295f061cba7b5f0d112
+
+## Slack
+
+- http://blog.10rane.com/2015/03/13/notification-build-results-of-wercker-to-slack/

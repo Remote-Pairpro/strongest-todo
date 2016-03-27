@@ -21,3 +21,4 @@ build:
             subdomain: remote-pairpro
             token: $SLACK_TOKEN
             channel: worklogs
+            username: wercker
