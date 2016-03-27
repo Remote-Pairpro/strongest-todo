@@ -25,7 +25,7 @@ var tsProject = typescript.createProject('tsconfig.json', function () {
 });
 
 // 定数群
-const TEST_BUILD_DIR = './test-build/';
+const TEST_BUILD_DIR = './test/';
 
 // タスク群。
 
@@ -125,26 +125,25 @@ gulp.task('verup-patch', function () {
 
 gulp.task('build', function () {
     return browserify()
-        .add('./src/main/ZundokoKiyoshi.ts')
-        .add('./src/main/ZundokoButtonViewModel.ts')
+        .add('./src/main/StrongestTodoViewModel.ts')
         .plugin('tsify', {
             target: 'ES6',
             removeComments: true
         })
         .bundle()
         .pipe(source('app.js'))
-        .pipe(gulp.dest('./site/js'));
+        .pipe(gulp.dest('./app/js'));
 });
 
 gulp.task('upload-ghpages', function () {
-    return gulp.src('./site/**/*')
+    return gulp.src('./app/**/*')
         .pipe(ghPages());
 });
 
 // WerckerCI用の「スペシャルｇｈ−pagesアップロードタスク」。
 // githubの操作用トークンを変数から取るように成ってる。
 gulp.task('upload-ghpages-for-wercker', function () {
-    return gulp.src('./site/**/*')
+    return gulp.src('./app/**/*')
         .pipe(ghPages({ remoteUrl: "https://$GITHUB_TOKEN@github.com/kazuhito-m/zundoko-kiyoshi-ts" }));
 });
 
@@ -160,7 +159,7 @@ gulp.task('deploy', function (cb) {
 });
 
 gulp.task('webserver', function () {
-    gulp.src('./site')
+    gulp.src('./app')
         .pipe(webserver({
             livereload: true,
             fallback: 'index.html',

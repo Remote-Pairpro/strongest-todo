@@ -4,6 +4,8 @@
   "description": "俺達が考える最強のTODOリスト！",
   "main": "index.js",
   "directories": {
+    "app": "app",
+    "src": "src",
     "doc": "doc"
   },
   "scripts": {
@@ -17,6 +19,7 @@
     "upload-ghpages": "gulp upload-ghpages",
     "git-push": "gulp git-push",
     "deploy": "gulp deploy",
+    "develop": "gulp develop",
     "upload-ghpages-for-wercker": "gulp upload-ghpages-for-wercker"
   },
   "repository": {
