@@ -1,0 +1,27 @@
+{
+  "name": "strongest-todo",
+  "version": "1.0.0",
+  "description": "俺達が考える最強のTODOリスト！",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Remote-Pairpro/strongest-todo.git"
+  },
+  "keywords": [
+    "typescript",
+    "electron",
+    "todo"
+  ],
+  "author": "kazuhito-m,HIDARI0415",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Remote-Pairpro/strongest-todo/issues"
+  },
+  "homepage": "https://github.com/Remote-Pairpro/strongest-todo#readme"
+}
