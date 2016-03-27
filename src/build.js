@@ -1,5 +1,12 @@
+const BASE_PACKAGE_JSON = '../package.json';
 var packager = require('electron-packager');  
-var config = require('./package.json');
+var fs = require('fs');
+var del = require('del');
+var config = require(process.cwd() + '/package.json');
+
+// 苦肉の策。一時的にpackage.jsonをコピー
+// よくわからないが…どうやら「ビルド対象のディレクトリにpackage.jsonを期待」している模様。
+fs.createReadStream('./package.json').pipe(fs.createWriteStream('./app/package.json'));
 
 packager({  
   dir: './app',          // 対象
@@ -22,5 +29,8 @@ packager({
   if(err) {
     throw new Error(err);
   }
+  // 後始末
+  del('./app/package.json');
   console.log('Done!!');
 });
+
