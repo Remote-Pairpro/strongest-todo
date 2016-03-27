@@ -30,6 +30,10 @@
 - doneにしたあとで一定時間で復活したりするタスク
   - 定期的に発生する？の表現
 
+## 参考
+
+[こちら](blob/master/doc/REFERENCE_PUBS.md)
+
 ## Author
 
 + [kazuhito_m](https://twitter.com/kazuhito_m)
