@@ -30,10 +30,39 @@
     </header>
 
     <section class="container text-center">
+        <input type="text" data-bind='value: newContent' />
+        <button type="button text-center" class="btn btn-primary btn-lg" data-bind='click: addTodo'>追加</button>
+    </section>
 
-    <!-- おそらく、本体ここらへん -->
+    <section class="container text-center">
+
+        <div class="panel panel-default ">
+            <!-- Default panel contents -->
+
+            <!-- Table -->
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th class="text-center ">チェック</th>
+                        <th class="text-left ">内容</th>
+                    </tr>
+                </thead>
+                <tbody  data-bind='foreach: todoList'>
+                    <tr>
+                        <td class="text-center ">
+                            <span data-bind="text: check "></span>
+                        </td>
+                        <td class="text-left ">
+                            <span data-bind="text: content "></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </section>
+
+
 
     <footer class="container text-center ">
         Strongest TODO Ver. <span data-bind="text: appVersion "></span>
