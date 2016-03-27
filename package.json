@@ -7,9 +7,17 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "test",
+    "postinstall": "gulp download-typings",
+    "download-typings": "gulp download-typings",
     "start-electron": "node_modules/.bin/electron ./app",
-    "build-electron": "node ./src/build.js"
+    "build-electron": "node ./src/build.js",
+    "test": "gulp test",
+    "verup-patch": "gulp verup-patch",
+    "build": "gulp build",
+    "upload-ghpages": "gulp upload-ghpages",
+    "git-push": "gulp git-push",
+    "deploy": "gulp deploy",
+    "upload-ghpages-for-wercker": "gulp upload-ghpages-for-wercker"
   },
   "repository": {
     "type": "git",
