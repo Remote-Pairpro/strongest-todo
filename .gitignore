@@ -1,7 +1,7 @@
 # work/result directorys
-src/typings/
-dist/
-test/
+/src/typings/
+/dist/
+/test/
 .publish/
 
 # transpile and result sources
