@@ -125,7 +125,7 @@ gulp.task('verup-patch', function () {
 
 gulp.task('build', function () {
     return browserify()
-        .add('./src/main/StrongestTodoViewModel.ts')
+        .add('./src/main/index.ts')
         .plugin('tsify', {
             target: 'ES6',
             removeComments: true

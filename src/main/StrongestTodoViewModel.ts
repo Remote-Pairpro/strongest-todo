@@ -4,22 +4,25 @@ import AppVersion from './AppVersion';
 import StrongestTodo from './StrongestTodo';
 import Todo from './Todo';
 
-class StrongestTodoViewModel {
+export default class StrongestTodoViewModel {
 
     public appVersion: KnockoutObservable<string>;
     public newContent: KnockoutObservable<string>;
-    
+
     // 本体となるエンジンみたいなの
     private todos: StrongestTodo;
 
     // コンストラクタ
-    public constructor() {
+    public constructor(ko: KnockoutStatic) {
         // アプリケーションのバージョン表示用オブジェクト。
         this.appVersion = ko.observable(AppVersion.version);
         this.newContent = ko.observable("");
 
         // 本体初期化。
         this.todos = new StrongestTodo(ko.observableArray([]));
+
+        // 自分でKnockoutオブジェクトへと登録。
+        ko.applyBindings(this);
     }
 
     // 画面上部の入力域の内容で、Todoを一つ足す。
@@ -30,12 +33,9 @@ class StrongestTodoViewModel {
         this.newContent("");
     }
 
-
     // プロパティ(ReadOnly)
     public get todoList(): KnockoutObservableArray<Todo> {
         return this.todos.todoList;
     }
 
 }
-
-ko.applyBindings(new StrongestTodoViewModel());
