@@ -22,18 +22,15 @@ class StrongestTodoViewModel {
         this.newContent = ko.observable("");
 
         // 本体初期化。
-        var innerTodo:Todo[] = [];
-        this.todoList = ko.observableArray(innerTodo);
-        this.todos = new StrongestTodo(innerTodo);
+        this.todoList = ko.observableArray([]);
+        this.todos = new StrongestTodo(this.todoList());
         
     }
 
+    // 画面上部の入力域の内容で、Todoを一つ足す。
     public addTodo() {
         let todo = new Todo(this.newContent(),false);
         this.todos.add(todo);
-        
-        alert("中の配列っぽいヤツは… " + this.todos.todoList.length);
-        
     }
 
 }
