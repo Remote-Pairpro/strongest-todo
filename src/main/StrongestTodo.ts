@@ -8,10 +8,11 @@ import Todo from './Todo';
 export default class StrongestTodo {
     
     // 中のTodo列
-    public todoList:Todo[];
+    public todoList:KnockoutObservableArray<Todo>;
+
     
     // コンストラクタ
-    public constructor(initTodos:Todo[]) {
+    public constructor(initTodos:KnockoutObservableArray<Todo>) {
         this.todoList = initTodos;
     }
     
