@@ -15,4 +15,9 @@ export default class StrongestTodo {
         this.todoList = initTodos;
     }
     
+    // Todoを追加。
+    public add(newTodo:Todo) {
+        this.todoList.push(newTodo);
+    }
+        
 }

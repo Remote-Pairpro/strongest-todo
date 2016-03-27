@@ -6,8 +6,6 @@ import Todo from '../main/Todo';
 
 describe("StrongestTodo", () => {
 
-    var sut = new StrongestTodo([]);
-
     it("Newできるか(テスト自体のサンプル品)", () => {
         let actual = new StrongestTodo([]);
         assert.notEqual(actual, null);
@@ -19,6 +17,18 @@ describe("StrongestTodo", () => {
         assert.equal(actual.todoList[0].content, "会いたかった");
         assert.equal(actual.todoList[0].check, true);
     });
+
+    it("Todoを追加出来る", () => {
+        let sut = new StrongestTodo([]);
+        let todo = new Todo("会いたかった",true);
+        assert.equal(sut.todoList.length , 0);
+        
+        sut.add(todo);
+        
+        assert.equal(sut.todoList.length , 1);
+    });
+
+
 
 });
 
