@@ -6,4 +6,4 @@
 /// <reference path="../typings/main.d.ts" />
 import ko = require('knockout');
 import StrongestTodoViewModel from '../main/StrongestTodoViewModel';
-new StrongestTodoViewModel(ko);
+ko.applyBindings(new StrongestTodoViewModel(ko));
