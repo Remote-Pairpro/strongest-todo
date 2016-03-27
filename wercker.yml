@@ -1,0 +1,18 @@
+box: node
+build:
+    steps:
+        - npm-install
+        - npm-test
+        - script:
+            name: echo nodejs information
+            code: |
+                echo "node version $(node -v) running"
+                echo "npm version $(npm -v) running"
+        - script:
+            name: build and deploy(for Github Pages)
+            code: |
+              git config --global user.email "wercker@example.com"
+              git config --global user.name "wercker"
+              npm run download-typings
+              npm run build
+              npm run upload-ghpages-for-wercker
