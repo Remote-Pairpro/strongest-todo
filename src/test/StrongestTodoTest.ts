@@ -12,7 +12,7 @@ describe("StrongestTodo", () => {
     function createSut(): StrongestTodo {
         return new StrongestTodo(ko.observableArray([]));
     }
-    
+
     it("Newできるか(テスト自体のサンプル品)", () => {
         assert.notEqual(createSut(), null);
     });
