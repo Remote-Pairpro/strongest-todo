@@ -4,18 +4,15 @@ import AppVersion from './AppVersion';
 import StrongestTodo from './StrongestTodo';
 import Todo from './Todo';
 
-class StrongestTodoViewModel {
+export default class StrongestTodoViewModel {
 
-    public appVersion: KnockoutObservable<string>;
     public newContent: KnockoutObservable<string>;
-    
+
     // 本体となるエンジンみたいなの
     private todos: StrongestTodo;
 
     // コンストラクタ
-    public constructor() {
-        // アプリケーションのバージョン表示用オブジェクト。
-        this.appVersion = ko.observable(AppVersion.version);
+    public constructor(ko: KnockoutStatic) {
         this.newContent = ko.observable("");
 
         // 本体初期化。
@@ -30,12 +27,14 @@ class StrongestTodoViewModel {
         this.newContent("");
     }
 
-
     // プロパティ(ReadOnly)
     public get todoList(): KnockoutObservableArray<Todo> {
         return this.todos.todoList;
     }
+    
+    // アプリケーションのバージョン表示
+    public get appVersion() {
+        return (new AppVersion()).version;
+    }
 
 }
-
-ko.applyBindings(new StrongestTodoViewModel());

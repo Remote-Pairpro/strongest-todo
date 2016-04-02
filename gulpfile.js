@@ -111,7 +111,7 @@ gulp.task('verup-patch', function () {
         .pipe(through.obj(function (file, enc, cb) {
             // package.json からファイルを読んで、version取り出し、クラスファイルに反映。
             var packageJson = JSON.parse(file._contents);
-            var code = 'export default class AppVersion {\n	public static version = "' + packageJson.version + '";\n}';
+            var code = 'export default class AppVersion {\n	public version: string = "' + packageJson.version + '";\n}';
             fs.writeFile('./src/main/AppVersion.ts', code);
             cb(null, file);
         }))
@@ -125,7 +125,7 @@ gulp.task('verup-patch', function () {
 
 gulp.task('build', function () {
     return browserify()
-        .add('./src/main/StrongestTodoViewModel.ts')
+        .add('./src/main/index.ts')
         .plugin('tsify', {
             target: 'ES6',
             removeComments: true
