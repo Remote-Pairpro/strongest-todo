@@ -42,14 +42,14 @@
             <table class="table ">
                 <thead>
                     <tr>
-                        <th class="text-center ">チェック</th>
+                        <th class="text-center ">Done</th>
                         <th class="text-left ">内容</th>
                     </tr>
                 </thead>
                 <tbody data-bind='foreach: todoList'>
                     <tr>
                         <td class="text-center ">
-                            <span data-bind="text: check "></span>
+                            <input type="checkbox" data-bind="checked: done " />
                         </td>
                         <td class="text-left ">
                             <span data-bind="text: content "></span>

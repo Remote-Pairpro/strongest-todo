@@ -5924,9 +5924,9 @@ exports.default = StrongestTodoViewModel;
 },{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5}],5:[function(require,module,exports){
 "use strict";
 class Todo {
-    constructor(content, check) {
+    constructor(content, done) {
         this.content = content;
-        this.check = check;
+        this.done = done;
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
