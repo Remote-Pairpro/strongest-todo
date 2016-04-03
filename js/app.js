@@ -5875,7 +5875,7 @@ ko.exportSymbol('nativeTemplateEngine', ko.nativeTemplateEngine);
 "use strict";
 class AppVersion {
     constructor() {
-        this.version = "1.0.1";
+        this.version = "1.0.2";
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
