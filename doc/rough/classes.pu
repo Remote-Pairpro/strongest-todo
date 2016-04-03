@@ -2,9 +2,15 @@
 
 package "strongest-todo" {
 
+  class StrongestTodoViewModel {
+      - todos:StrongestTodo
+      + addTodo()
+  }
+
   class StrongestTodo {
       + todoList:KnockoutObservableArray<Todo>
       + void add(content:string)
+      + void delete(target:Todo)
   }
 
   class Todo {
@@ -13,6 +19,7 @@ package "strongest-todo" {
   }
 
   StrongestTodo "1" o- "0..*" Todo : "集約"
+  StrongestTodoViewModel "1" o- "1" StrongestTodo : "保持"
 
 }
 
