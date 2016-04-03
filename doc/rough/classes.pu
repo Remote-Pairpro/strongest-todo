@@ -15,7 +15,7 @@ package "strongest-todo" {
 
   class Todo {
     + content:string
-    + check:boolean
+    + done:boolean
   }
 
   StrongestTodo "1" o- "0..*" Todo : "集約"
