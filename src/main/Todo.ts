@@ -7,7 +7,7 @@ export default class Todo {
 
     public constructor(
         public content: string
-        , public check: boolean
+        , public done: boolean
     ) {
     }
 
