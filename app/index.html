@@ -49,7 +49,7 @@
                 <tbody data-bind='foreach: todoList'>
                     <tr>
                         <td class="text-center ">
-                            <span data-bind="text: done "></span>
+                            <input type="checkbox" data-bind="checked: done " />
                         </td>
                         <td class="text-left ">
                             <span data-bind="text: content "></span>
