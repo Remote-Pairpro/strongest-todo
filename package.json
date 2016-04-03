@@ -1,6 +1,6 @@
 {
   "name": "strongest-todo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "俺達が考える最強のTODOリスト！",
   "main": "index.js",
   "directories": {
