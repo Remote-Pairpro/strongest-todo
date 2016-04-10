@@ -7,6 +7,7 @@ import Todo from './Todo';
 export default class StrongestTodoViewModel {
 
     public newContent: KnockoutObservable<string>;
+    public filterdTodoList: KnockoutComputed<any>;
 
     // 本体となるエンジンみたいなの
     private todos: StrongestTodo;
@@ -17,6 +18,16 @@ export default class StrongestTodoViewModel {
 
         // 本体初期化。
         this.todos = new StrongestTodo(ko.observableArray([]));
+        
+        // フィルターイベント
+        this.filterdTodoList = ko.computed(() => {
+            // 「Doneのものを表示しない」チェックボックスがOnならフィルターかける
+            var isInvisibleOnDone = true; // 仮実装
+            if (!isInvisibleOnDone) return this.todos.todoList();
+            return ko.utils.arrayFilter(this.todos.todoList(), (i:Todo) => {
+                return !i.done;
+            });
+        }, this);
     }
 
     // 画面上部の入力域の内容で、Todoを一つ足す。
@@ -36,5 +47,6 @@ export default class StrongestTodoViewModel {
     public get appVersion() {
         return (new AppVersion()).version;
     }
+    
 
 }
