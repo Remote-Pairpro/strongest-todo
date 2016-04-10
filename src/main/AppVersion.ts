@@ -1,3 +1,3 @@
 export default class AppVersion {
-	public version: string = "1.0.3";
+	public version: string = "1.0.4";
 }
