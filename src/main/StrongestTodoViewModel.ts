@@ -10,6 +10,8 @@ export default class StrongestTodoViewModel {
 
     public newContent: KnockoutObservable<string>;
     public filterdTodoList: KnockoutComputed<any>;
+    
+    public hideDoneTasks: KnockoutObservable<boolean>;
 
     // 本体となるエンジンみたいなの
     private todos: StrongestTodo;
@@ -20,6 +22,7 @@ export default class StrongestTodoViewModel {
         this.ko = ko;
         
         this.newContent = this.ko.observable("");
+        this.hideDoneTasks = this.ko.observable(false);
 
         // 本体初期化。
         this.todos = new StrongestTodo(ko.observableArray([]));
@@ -27,8 +30,7 @@ export default class StrongestTodoViewModel {
         // フィルターイベント
         this.filterdTodoList = this.ko.computed(() => {
             // 「Doneのものを表示しない」チェックボックスがOnならフィルターかける
-            var isInvisibleOnDone = true; // 仮実装
-            if (!isInvisibleOnDone) return this.todos.todoList();
+            if (!this.hideDoneTasks()) return this.todos.todoList();
             return ko.utils.arrayFilter(this.todos.todoList(), (i:Todo) => {
                 return !i.done();
             });
