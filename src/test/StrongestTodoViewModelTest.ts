@@ -11,7 +11,7 @@ describe("StrongestTodoViewModel", () => {
     function createSut(): StrongestTodoViewModel {
         return new StrongestTodoViewModel(ko);
     }
-
+    
     it("画面の初期状態は入力欄空、リスト空である", () => {
         let sut = createSut();
         assert.equal(sut.todoList().length, 0);
@@ -42,6 +42,36 @@ describe("StrongestTodoViewModel", () => {
 
         assert.equal(sut.todoList().length, 0);
     });
+    
+    it("フィルターのチェックボックスがOnなら表示件数が減る", () => {
+        let sut = createSut();
+        
+        // 初期条件。TODO追加。
+        sut.newContent("1st");
+        sut.addTodo();
+        sut.newContent("2nd");
+        sut.addTodo();
+        sut.newContent("3rd");
+        sut.addTodo();
+        sut.newContent("4th");
+        sut.addTodo();
+        sut.newContent("5th");
+        sut.addTodo();
+        // ２つくらいDoneする
+        sut.todos.todoList()[2].done(true);
+        sut.todos.todoList()[4].done(true);
+        assert.equal(sut.todos.todoList().length , 5);
+        
+        // filterをON
+        sut.hideDoneTasks(true);
+        assert.equal(sut.filterTodo().length, 3);
+        
+        // filterをOFF、全件戻ってくる
+        sut.hideDoneTasks(false);
+        assert.equal(sut.filterTodo().length, 5);
+        
+    });
+    
 
 });
 

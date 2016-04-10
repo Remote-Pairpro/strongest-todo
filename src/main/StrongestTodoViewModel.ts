@@ -14,7 +14,7 @@ export default class StrongestTodoViewModel {
     public hideDoneTasks: KnockoutObservable<boolean>;
 
     // 本体となるエンジンみたいなの
-    private todos: StrongestTodo;
+    public todos: StrongestTodo;
 
     // コンストラクタ
     public constructor(ko: KnockoutStatic) {
@@ -29,11 +29,7 @@ export default class StrongestTodoViewModel {
         
         // フィルターイベント
         this.filterdTodoList = this.ko.computed(() => {
-            // 「Doneのものを表示しない」チェックボックスがOnならフィルターかける
-            if (!this.hideDoneTasks()) return this.todos.todoList();
-            return ko.utils.arrayFilter(this.todos.todoList(), (i:Todo) => {
-                return !i.done();
-            });
+            return this.filterTodo();
         }, this);
     }
 
@@ -41,13 +37,26 @@ export default class StrongestTodoViewModel {
     public addTodo() {
         let content = this.newContent().trim();
         if (content.length == 0) return;
-        this.todos.add(new Todo(content, this.ko.observable(false)));
+        this.todos.add(this.createTodo(content, false));
         this.newContent("");
     }
 
     // プロパティ(ReadOnly)
     public get todoList(): KnockoutObservableArray<Todo> {
         return this.todos.todoList;
+    }
+    
+    // 「Doneのものを表示しない」チェックボックスがOnならフィルターかける
+    public filterTodo():Todo[] {
+        if (!this.hideDoneTasks()) return this.todos.todoList();
+        return this.todos.todoList().filter((i:Todo) => {
+            return !i.done();
+        });
+    }
+    
+    // 新規Todoを作成し、返す。(Observable注入)
+    public createTodo(content:string , done:boolean):Todo {
+        return new Todo(content, this.ko.observable(done));
     }
     
     // アプリケーションのバージョン表示
