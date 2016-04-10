@@ -5903,6 +5903,14 @@ class StrongestTodoViewModel {
     constructor(ko) {
         this.newContent = ko.observable("");
         this.todos = new StrongestTodo_1.default(ko.observableArray([]));
+        this.filterdTodoList = ko.computed(() => {
+            var isInvisibleOnDone = true;
+            if (!isInvisibleOnDone)
+                return this.todos.todoList();
+            return ko.utils.arrayFilter(this.todos.todoList(), (i) => {
+                return !i.done;
+            });
+        }, this);
     }
     addTodo() {
         let content = this.newContent().trim();
