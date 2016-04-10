@@ -9,7 +9,6 @@ export default class StrongestTodo {
     
     // 中のTodo列
     public todoList: KnockoutObservableArray<Todo>;
-
     
     // コンストラクタ
     public constructor(initTodos: KnockoutObservableArray<Todo>) {
