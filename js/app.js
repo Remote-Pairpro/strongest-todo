@@ -5901,14 +5901,15 @@ const StrongestTodo_1 = require('./StrongestTodo');
 const Todo_1 = require('./Todo');
 class StrongestTodoViewModel {
     constructor(ko) {
-        this.newContent = ko.observable("");
+        this.ko = ko;
+        this.newContent = this.ko.observable("");
         this.todos = new StrongestTodo_1.default(ko.observableArray([]));
-        this.filterdTodoList = ko.computed(() => {
+        this.filterdTodoList = this.ko.computed(() => {
             var isInvisibleOnDone = true;
             if (!isInvisibleOnDone)
                 return this.todos.todoList();
             return ko.utils.arrayFilter(this.todos.todoList(), (i) => {
-                return !i.done;
+                return !i.done();
             });
         }, this);
     }
@@ -5916,7 +5917,7 @@ class StrongestTodoViewModel {
         let content = this.newContent().trim();
         if (content.length == 0)
             return;
-        this.todos.add(new Todo_1.default(content, false));
+        this.todos.add(new Todo_1.default(content, this.ko.observable(false)));
         this.newContent("");
     }
     get todoList() {
