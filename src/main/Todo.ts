@@ -7,7 +7,7 @@ export default class Todo {
 
     public constructor(
         public content: string
-        , public done: boolean
+        , public done: KnockoutObservable<boolean>
     ) {
     }
 

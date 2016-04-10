@@ -6,6 +6,8 @@ import Todo from './Todo';
 
 export default class StrongestTodoViewModel {
 
+    private ko: KnockoutStatic;
+
     public newContent: KnockoutObservable<string>;
     public filterdTodoList: KnockoutComputed<any>;
 
@@ -14,18 +16,21 @@ export default class StrongestTodoViewModel {
 
     // コンストラクタ
     public constructor(ko: KnockoutStatic) {
-        this.newContent = ko.observable("");
+        
+        this.ko = ko;
+        
+        this.newContent = this.ko.observable("");
 
         // 本体初期化。
         this.todos = new StrongestTodo(ko.observableArray([]));
         
         // フィルターイベント
-        this.filterdTodoList = ko.computed(() => {
+        this.filterdTodoList = this.ko.computed(() => {
             // 「Doneのものを表示しない」チェックボックスがOnならフィルターかける
             var isInvisibleOnDone = true; // 仮実装
             if (!isInvisibleOnDone) return this.todos.todoList();
             return ko.utils.arrayFilter(this.todos.todoList(), (i:Todo) => {
-                return !i.done;
+                return !i.done();
             });
         }, this);
     }
@@ -34,7 +39,7 @@ export default class StrongestTodoViewModel {
     public addTodo() {
         let content = this.newContent().trim();
         if (content.length == 0) return;
-        this.todos.add(new Todo(content, false));
+        this.todos.add(new Todo(content, this.ko.observable(false)));
         this.newContent("");
     }
 
@@ -47,6 +52,5 @@ export default class StrongestTodoViewModel {
     public get appVersion() {
         return (new AppVersion()).version;
     }
-    
 
 }
