@@ -5906,22 +5906,28 @@ class StrongestTodoViewModel {
         this.hideDoneTasks = this.ko.observable(false);
         this.todos = new StrongestTodo_1.default(ko.observableArray([]));
         this.filterdTodoList = this.ko.computed(() => {
-            if (!this.hideDoneTasks())
-                return this.todos.todoList();
-            return ko.utils.arrayFilter(this.todos.todoList(), (i) => {
-                return !i.done();
-            });
+            return this.filterTodo();
         }, this);
     }
     addTodo() {
         let content = this.newContent().trim();
         if (content.length == 0)
             return;
-        this.todos.add(new Todo_1.default(content, this.ko.observable(false)));
+        this.todos.add(this.createTodo(content, false));
         this.newContent("");
     }
     get todoList() {
         return this.todos.todoList;
+    }
+    filterTodo() {
+        if (!this.hideDoneTasks())
+            return this.todos.todoList();
+        return this.todos.todoList().filter((i) => {
+            return !i.done();
+        });
+    }
+    createTodo(content, done) {
+        return new Todo_1.default(content, this.ko.observable(done));
     }
     get appVersion() {
         return (new AppVersion_1.default()).version;
