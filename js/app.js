@@ -5929,6 +5929,9 @@ class StrongestTodoViewModel {
     createTodo(content, done) {
         return new Todo_1.default(content, this.ko.observable(done));
     }
+    removeTodo(todo) {
+        console.log(todo.content);
+    }
     get appVersion() {
         return (new AppVersion_1.default()).version;
     }
