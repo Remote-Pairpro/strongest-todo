@@ -12,5 +12,10 @@ describe("Todo", () => {
         assert.equal(actual.content, "TODOの内容");
         assert.equal(actual.done(), true);
     });
+    
+    it("Id生成時、UUIDっぽいものが作成される", () => {
+        let actual = new Todo("TODOの内容", ko.observable(true));
+        assert.equal(actual.id.length, 36);
+    });
 
 });
