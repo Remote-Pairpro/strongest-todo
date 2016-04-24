@@ -19,5 +19,10 @@ export default class StrongestTodo {
     public add(newTodo: Todo) {
         this.todoList.push(newTodo);
     }
+    
+    // Todoを削除。
+    public remove(todo: Todo) {
+        this.todoList.remove(todo);
+    }
 
 }

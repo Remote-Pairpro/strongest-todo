@@ -18,7 +18,6 @@ export default class StrongestTodoViewModel {
 
     // コンストラクタ
     public constructor(ko: KnockoutStatic) {
-
         this.ko = ko;
 
         this.newContent = this.ko.observable("");
@@ -59,9 +58,7 @@ export default class StrongestTodoViewModel {
         return new Todo(content, this.ko.observable(done));
     }
     
-    public removeTodo(todo: Todo) {
-        console.log(todo.content);
-    }
+    public removeTodo = (todo: Todo) => this.todos.remove(todo);
     
     // アプリケーションのバージョン表示
     public get appVersion() {
