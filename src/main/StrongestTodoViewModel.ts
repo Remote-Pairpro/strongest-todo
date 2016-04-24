@@ -59,6 +59,10 @@ export default class StrongestTodoViewModel {
         return new Todo(content, this.ko.observable(done));
     }
     
+    public removeTodo(todo: Todo) {
+        console.log(todo.content);
+    }
+    
     // アプリケーションのバージョン表示
     public get appVersion() {
         return (new AppVersion()).version;
