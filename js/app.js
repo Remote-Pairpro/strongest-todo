@@ -5929,6 +5929,22 @@ class StrongestTodoViewModel {
     createTodo(content, done) {
         return new Todo_1.default(content, this.ko.observable(done));
     }
+    dragStart(e, data) {
+        console.log("dragStart");
+        console.log(e);
+        console.log("DragStart時のデータ" + data.content);
+        return true;
+    }
+    drop(e, data) {
+        console.log("drop");
+        console.log(e);
+        console.log("Drop時のデータ" + data.content);
+    }
+    dragOver(e, data) {
+        e.preventDefault();
+        console.log("dragover");
+        console.log(data);
+    }
     get appVersion() {
         return (new AppVersion_1.default()).version;
     }
