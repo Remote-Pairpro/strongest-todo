@@ -5942,6 +5942,26 @@ class Todo {
     constructor(content, done) {
         this.content = content;
         this.done = done;
+        this.innerId = this.makeId();
+    }
+    makeId() {
+        let pattern = [2, 1, 1, 1, 3];
+        let id = "";
+        for (let i = 0; i < pattern.length; i++) {
+            if (i > 0) {
+                id += "-";
+            }
+            for (let j = 0; j < pattern[i]; j++) {
+                id += this.makeRandStr4();
+            }
+        }
+        return id;
+    }
+    makeRandStr4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+    get id() {
+        return this.innerId;
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
