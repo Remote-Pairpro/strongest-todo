@@ -31,7 +31,7 @@
         <form class="form-inline">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Enter TODO" data-bind="value: newContent, valueUpdate: 'afterkeydown'" />
-                <button type="button text-center" class="btn btn-primary-outline btn-sm" data-bind='click: addTodo, enable: newContent().length > 0'>追加</button>
+                <button type="button text-center" class="btn btn-primary-outline btn-sm" data-bind='click: addTodo, enable: existNewContent()'>追加</button>
                 <div class="checkbox">
                     <label><input type="checkbox" data-bind="checked: hideDoneTasks ">Doneのものを表示しない</label>
                 </div>

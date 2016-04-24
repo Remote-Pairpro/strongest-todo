@@ -64,5 +64,11 @@ export default class StrongestTodoViewModel {
     public get appVersion() {
         return (new AppVersion()).version;
     }
-
+    
+    /**
+     * 追加ボタンの制御
+     */
+    public existNewContent():boolean{
+        return this.newContent().length > 0;
+    }
 }
