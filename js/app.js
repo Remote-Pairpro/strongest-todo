@@ -5946,6 +5946,9 @@ class StrongestTodoViewModel {
         console.log("dragover");
         console.log(data);
     }
+    removeTodo(todo) {
+        console.log(todo.content);
+    }
     get appVersion() {
         return (new AppVersion_1.default()).version;
     }
