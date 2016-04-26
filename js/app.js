@@ -5890,6 +5890,9 @@ class StrongestTodo {
     add(newTodo) {
         this.todoList.push(newTodo);
     }
+    remove(todo) {
+        this.todoList.remove(todo);
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StrongestTodo;
@@ -5901,6 +5904,7 @@ const StrongestTodo_1 = require('./StrongestTodo');
 const Todo_1 = require('./Todo');
 class StrongestTodoViewModel {
     constructor(ko) {
+        this.removeTodo = (todo) => this.todos.remove(todo);
         this.ko = ko;
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
@@ -5929,28 +5933,11 @@ class StrongestTodoViewModel {
     createTodo(content, done) {
         return new Todo_1.default(content, this.ko.observable(done));
     }
-    dragStart(e, data) {
-        console.log("dragStart");
-        console.log(e);
-        console.log("DragStart時のデータ" + data.content);
-        e.dataTransfer.setData("text", data.id);
-        return true;
-    }
-    drop(e, data) {
-        console.log("drop");
-        console.log(e);
-        console.log("Drop時のデータ" + data.content);
-    }
-    dragOver(e, data) {
-        e.preventDefault();
-        console.log("dragover");
-        console.log(data);
-    }
-    removeTodo(todo) {
-        console.log(todo.content);
-    }
     get appVersion() {
         return (new AppVersion_1.default()).version;
+    }
+    existNewContent() {
+        return this.newContent().length > 0;
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
