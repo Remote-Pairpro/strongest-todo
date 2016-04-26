@@ -16,3 +16,13 @@
 ## Slack
 
 - http://blog.10rane.com/2015/03/13/notification-build-results-of-wercker-to-slack/
+
+## HTML5
+
+### Drag and Drop
+
++ http://www.html5rocks.com/ja/tutorials/dnd/basics/
++ http://stackoverflow.com/questions/26710225/file-drag-and-drop-not-working-with-knockout-js
++ http://www.htmq.com/dnd/
++ http://dresscording.com/blog/html5/drag_drop.html
+
