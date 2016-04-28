@@ -19,7 +19,7 @@ export default class StrongestTodoViewModel {
     // コンストラクタ
     public constructor(ko: KnockoutStatic) {
         this.ko = ko;
-
+        
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
 
@@ -71,4 +71,14 @@ export default class StrongestTodoViewModel {
     public existNewContent():boolean{
         return this.newContent().length > 0;
     }
+    
+    // Drag Drop まわり
+    
+    public dragStart(item:any) {
+        item.dragging(true);
+    }
+
+    public dragEnd(item) {
+        item.dragging(false);
+    };
 }

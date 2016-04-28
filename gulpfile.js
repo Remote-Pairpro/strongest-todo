@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var mocha = require('gulp-mocha');
 var sourcemaps = require('gulp-sourcemaps');
-var istanbul = require('gulp-istanbul');
 var remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 var del = require('del');
 var mkdirp = require('mkdirp');
@@ -130,6 +129,7 @@ gulp.task('build', function () {
             target: 'ES6',
             removeComments: true
         })
+	.add('./node_modules/knockout-dragdrop/lib/knockout.dragdrop.js')
         .bundle()
         .pipe(source('app.js'))
         .pipe(gulp.dest('./app/js'));
