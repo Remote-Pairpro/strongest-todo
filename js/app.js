@@ -5916,7 +5916,7 @@ class StrongestTodoViewModel {
         this.store.localSave = onSave;
         const lastTodos = this.store.load();
         lastTodos.forEach((v, i) => {
-            v.done = ko.observable(v.doneForSerialize);
+            v.done = ko.observable(this.toBool(v.doneForSerialize));
         });
         this.todos = new StrongestTodo_1.default(ko.observableArray(lastTodos));
         this.filterdTodoList = this.ko.computed(() => {
@@ -5950,7 +5950,11 @@ class StrongestTodoViewModel {
     existNewContent() {
         return this.newContent().length > 0;
     }
+    toBool(value) {
+        return value == String(true);
+    }
     save() {
+        this.todos.todoList().forEach((v, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
     }
 }
@@ -5960,9 +5964,10 @@ exports.default = StrongestTodoViewModel;
 },{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5,"./TodoStore":6}],5:[function(require,module,exports){
 "use strict";
 class Todo {
-    constructor(content, done = null) {
+    constructor(content, done = null, doneForSerialize = "false") {
         this.content = content;
         this.done = done;
+        this.doneForSerialize = doneForSerialize;
         this.innerId = this.makeId();
     }
     makeId() {
@@ -5984,17 +5989,6 @@ class Todo {
     get id() {
         return this.innerId;
     }
-    get doneForSerialize() {
-        if (this.done == null) {
-            return this.doneTemp;
-        }
-        else {
-            return this.done();
-        }
-    }
-    set doneForSerialize(doneForSerialize) {
-        this.doneTemp = doneForSerialize;
-    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Todo;
@@ -6008,12 +6002,12 @@ class TodoStore {
     load() {
         console.log("ロード手前。");
         let loaded = [];
-        const json = null;
+        let json = null;
         if (this.localSave) {
-            localStorage.getItem(TodoStore.KEY);
+            json = localStorage.getItem(TodoStore.KEY);
         }
-        console.log("ロード後。");
-        if (this.localSave && json !== null) {
+        if (json !== null) {
+            console.log("ロード後。");
             console.log("json:" + json);
             loaded = JSON.parse(json);
         }
