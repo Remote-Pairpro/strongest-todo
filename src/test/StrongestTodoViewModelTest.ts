@@ -2,6 +2,7 @@
 
 import * as assert from 'power-assert';
 import StrongestTodoViewModel from '../main/StrongestTodoViewModel';
+import Todo from '../main/Todo';
 
 import ko = require('knockout');
 
@@ -69,9 +70,39 @@ describe("StrongestTodoViewModel", () => {
         // filterをOFF、全件戻ってくる
         sut.hideDoneTasks(false);
         assert.equal(sut.filterTodo().length, 5);
-
     });
 
+    it("入力域が空か否かを判定出来る", () => {
+        let sut = createSut();
+        sut.newContent("");
+        assert.equal(sut.existNewContent(),false);
+        // 文字を入力してみる。
+        sut.newContent("1");
+        assert.equal(sut.existNewContent(),true);
+        // さらに入力してみる。
+        sut.newContent("12");
+        assert.equal(sut.existNewContent(),true);
+    });
+
+    it("Todoを指定した削除が出来る", () => {
+        const sut = createSut();
+        // 初期条件。TODO追加。
+        sut.newContent("1st");
+        sut.addTodo();
+        sut.newContent("2nd");
+        sut.addTodo();
+        sut.newContent("3rd");
+        sut.addTodo();
+        // ふたつ目を選択し…
+        const seccond : Todo = sut.todos.todoList()[1];
+        assert.equal(seccond.content, "2nd");
+        // 削除してみる
+        sut.removeTodo(seccond);
+        // ２つになって、１，3となっているはず
+        const list: Todo[] = sut.todos.todoList();
+        assert.equal(list.length, 2);
+        assert.equal(list[0].content, "1st");
+        assert.equal(list[1].content, "3rd");
+    });
 
 });
-
