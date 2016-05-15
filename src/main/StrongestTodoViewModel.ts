@@ -3,6 +3,7 @@
 import AppVersion from './AppVersion';
 import StrongestTodo from './StrongestTodo';
 import Todo from './Todo';
+import TodoStore from './TodoStore';
 
 export default class StrongestTodoViewModel {
 
@@ -16,6 +17,9 @@ export default class StrongestTodoViewModel {
     // 本体となるエンジンみたいなの
     public todos: StrongestTodo;
 
+    // ローカル保存してくれるヤーツ。
+    private store = new TodoStore();
+    
     // コンストラクタ
     public constructor(ko: KnockoutStatic) {
         this.ko = ko;
@@ -24,7 +28,12 @@ export default class StrongestTodoViewModel {
         this.hideDoneTasks = this.ko.observable(false);
 
         // 本体初期化。
-        this.todos = new StrongestTodo(ko.observableArray([]));
+        const lastTodos: Todo[] = this.store.load();
+
+        lastTodos.forEach((v:Todo, i) => {
+            v.done = ko.observable(v.doneForSerialize);
+        });
+        this.todos = new StrongestTodo(ko.observableArray(lastTodos));
         
         // フィルターイベント
         this.filterdTodoList = this.ko.computed(() => {
@@ -38,6 +47,7 @@ export default class StrongestTodoViewModel {
         if (content.length == 0) return;
         this.todos.add(this.createTodo(content, false));
         this.newContent("");
+        this.save();
     }
 
     // プロパティ(ReadOnly)
@@ -58,7 +68,10 @@ export default class StrongestTodoViewModel {
         return new Todo(content, this.ko.observable(done));
     }
     
-    public removeTodo = (todo: Todo) => this.todos.remove(todo);
+    public removeTodo = (todo: Todo) => {
+        this.todos.remove(todo);
+        this.save();
+    }
     
     // アプリケーションのバージョン表示
     public get appVersion() {
@@ -70,5 +83,12 @@ export default class StrongestTodoViewModel {
      */
     public existNewContent():boolean{
         return this.newContent().length > 0;
+    }
+        
+    /**
+     * 現在のTodo(明細だけ)の情報を永続化。
+     */
+    private save() {
+        this.store.save(this.todoList());
     }
 }
