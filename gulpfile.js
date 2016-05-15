@@ -101,7 +101,7 @@ gulp.task('test', ['pre-test'], function () {
                 }));
         })
     // アウトの基準は"75%"くらいにしとく？
-        .pipe(istanbul.enforceThresholds({ thresholds: { global: 75 } }));
+        .pipe(istanbul.enforceThresholds({ thresholds: { global: 70 } }));
 });
 
 // patchバージョンを上げる
