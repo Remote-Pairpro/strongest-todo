@@ -104,4 +104,16 @@ describe("StrongestTodoViewModel", () => {
         assert.equal(list[1].content, "3rd");
     });
 
+    it("論理値の文字列表現をboolean値に変換出来る", () => {
+        const sut = createSut();
+        assert.equal(sut.toBool("true"), true);
+        assert.equal(sut.toBool("false"), false);
+        assert.equal(sut.toBool("True"), false);
+        assert.equal(sut.toBool("TRUE"), false);
+        assert.equal(sut.toBool("False"), false);
+        assert.equal(sut.toBool("FALSE"), false);
+        assert.equal(sut.toBool(""), false);
+        assert.equal(sut.toBool(null), false);
+    });
+
 });

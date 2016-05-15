@@ -15,12 +15,12 @@ export default class TodoStore {
     public load(): Todo[] {
         console.log("ロード手前。");
         let loaded: Todo[] = [];
-        const json: string = null;
+        let json = null;
         if (this.localSave) {
-            localStorage.getItem(TodoStore.KEY);
+            json = localStorage.getItem(TodoStore.KEY);
         }
-        console.log("ロード後。");
-        if (this.localSave && json !== null) {
+        if (json !== null) {
+            console.log("ロード後。");
             console.log("json:" + json);
             loaded = JSON.parse(json);
         }

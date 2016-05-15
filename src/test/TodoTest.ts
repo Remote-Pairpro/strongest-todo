@@ -18,15 +18,4 @@ describe("Todo", () => {
         assert.equal(actual.id.length, 36);
     });
 
-    // FIXME この機構は暫定…シリアライズの問題が片付けばプロパティごと葬りたい…。
-    it("シリアライズ周りで「doneにセットしてあればそれを」「セットしてなければ代替の値を」返す", () => {
-        const actual = new Todo("TODOの内容", null); // doneがnull
-        actual.doneForSerialize = true;
-        // doneに値のセットがなければ、doneForSerializeの値を採用する。
-        assert.equal(actual.doneForSerialize, true);
-        // doneに値のセットがあれば、doneの値を優先する。
-        actual.done = ko.observable(false);
-        assert.equal(actual.doneForSerialize, false);
-    });
-
 });

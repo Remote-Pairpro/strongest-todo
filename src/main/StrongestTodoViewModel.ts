@@ -30,8 +30,9 @@ export default class StrongestTodoViewModel {
         // 本体初期化。
         this.store.localSave = onSave;
         const lastTodos: Todo[] = this.store.load();
+        // 復元した状態では「doneがovservableになってない」ため、ダミーのプロパティから移し替える。
         lastTodos.forEach((v: Todo, i) => {
-            v.done = ko.observable(v.doneForSerialize);
+            v.done = ko.observable(this.toBool(v.doneForSerialize));
         });
         this.todos = new StrongestTodo(ko.observableArray(lastTodos));
         
@@ -84,11 +85,21 @@ export default class StrongestTodoViewModel {
     public existNewContent(): boolean {
         return this.newContent().length > 0;
     }
+
+    /**
+     * Stringでの「論理値表現」をboolean型に変換する。<br/>
+     * js的には「文字列はから文字でなければ、true」なので、標準APIでの変換が期待出来ないため。
+     */
+    public toBool(value: String): boolean {
+        return value == String(true);
+    }
         
     /**
      * 現在のTodo(明細だけ)の情報を永続化。
      */
     private save() {
+        // 保存用のプロパティにdoneの内容を移植(Observableでは保存出来ないため)
+        this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
     }
 

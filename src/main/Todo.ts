@@ -7,11 +7,10 @@ export default class Todo {
 
     private innerId: string;
 
-    private doneTemp: boolean;
-
     public constructor(
         public content: string
         , public done: KnockoutObservable<boolean> = null
+        , public doneForSerialize: string = "false"  // JSONによるSerializeのための領域、普段は使わない
     ) {
         this.innerId = this.makeId();
     }
@@ -38,18 +37,6 @@ export default class Todo {
 
     public get id() {
         return this.innerId;
-    }
-
-    public get doneForSerialize(): boolean {
-        if (this.done == null) {
-            return this.doneTemp;
-        } else {
-            return this.done();
-        }
-    }
-
-    public set doneForSerialize(doneForSerialize: boolean) {
-        this.doneTemp = doneForSerialize;
     }
 
 }
