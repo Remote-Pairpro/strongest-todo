@@ -5902,13 +5902,22 @@ exports.default = StrongestTodo;
 const AppVersion_1 = require('./AppVersion');
 const StrongestTodo_1 = require('./StrongestTodo');
 const Todo_1 = require('./Todo');
+const TodoStore_1 = require('./TodoStore');
 class StrongestTodoViewModel {
     constructor(ko) {
-        this.removeTodo = (todo) => this.todos.remove(todo);
+        this.store = new TodoStore_1.default();
+        this.removeTodo = (todo) => {
+            this.todos.remove(todo);
+            this.save();
+        };
         this.ko = ko;
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
-        this.todos = new StrongestTodo_1.default(ko.observableArray([]));
+        const lastTodos = this.store.load();
+        lastTodos.forEach((v, i) => {
+            v.done = ko.observable(v.doneForSerialize);
+        });
+        this.todos = new StrongestTodo_1.default(ko.observableArray(lastTodos));
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
@@ -5919,6 +5928,7 @@ class StrongestTodoViewModel {
             return;
         this.todos.add(this.createTodo(content, false));
         this.newContent("");
+        this.save();
     }
     get todoList() {
         return this.todos.todoList;
@@ -5939,11 +5949,14 @@ class StrongestTodoViewModel {
     existNewContent() {
         return this.newContent().length > 0;
     }
+    save() {
+        this.store.save(this.todoList());
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StrongestTodoViewModel;
 
-},{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5}],5:[function(require,module,exports){
+},{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5,"./TodoStore":6}],5:[function(require,module,exports){
 "use strict";
 class Todo {
     constructor(content, done) {
@@ -5970,14 +5983,55 @@ class Todo {
     get id() {
         return this.innerId;
     }
+    get doneForSerialize() {
+        if (this.done() == null) {
+            return this.doneTemp;
+        }
+        else {
+            return this.done();
+        }
+    }
+    set doneForSerialize(doneForSerialize) {
+        this.doneTemp = doneForSerialize;
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Todo;
 
 },{}],6:[function(require,module,exports){
 "use strict";
+class TodoStore {
+    constructor() {
+        this.localSave = true;
+    }
+    load() {
+        let loaded = [];
+        console.log("ロード手前。");
+        let json = localStorage.getItem(TodoStore.KEY);
+        console.log("ロード後。");
+        if (this.localSave && json !== null) {
+            console.log("json:" + json);
+            loaded = JSON.parse(json);
+        }
+        return loaded;
+    }
+    save(history) {
+        console.log("セーブ前、件数" + history.length);
+        if (this.localSave) {
+            let json = JSON.stringify(history);
+            console.log("json:" + json);
+            localStorage.setItem(TodoStore.KEY, json);
+        }
+    }
+}
+TodoStore.KEY = 'StrongestTodo';
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = TodoStore;
+
+},{}],7:[function(require,module,exports){
+"use strict";
 const ko = require('knockout');
 const StrongestTodoViewModel_1 = require('../main/StrongestTodoViewModel');
 ko.applyBindings(new StrongestTodoViewModel_1.default(ko));
 
-},{"../main/StrongestTodoViewModel":4,"knockout":1}]},{},[6]);
+},{"../main/StrongestTodoViewModel":4,"knockout":1}]},{},[7]);
