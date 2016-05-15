@@ -5904,7 +5904,7 @@ const StrongestTodo_1 = require('./StrongestTodo');
 const Todo_1 = require('./Todo');
 const TodoStore_1 = require('./TodoStore');
 class StrongestTodoViewModel {
-    constructor(ko) {
+    constructor(ko, onSave = true) {
         this.store = new TodoStore_1.default();
         this.removeTodo = (todo) => {
             this.todos.remove(todo);
@@ -5913,6 +5913,7 @@ class StrongestTodoViewModel {
         this.ko = ko;
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
+        this.store.localSave = onSave;
         const lastTodos = this.store.load();
         lastTodos.forEach((v, i) => {
             v.done = ko.observable(v.doneForSerialize);
@@ -5923,7 +5924,7 @@ class StrongestTodoViewModel {
         }, this);
     }
     addTodo() {
-        let content = this.newContent().trim();
+        const content = this.newContent().trim();
         if (content.length == 0)
             return;
         this.todos.add(this.createTodo(content, false));
@@ -5959,13 +5960,13 @@ exports.default = StrongestTodoViewModel;
 },{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5,"./TodoStore":6}],5:[function(require,module,exports){
 "use strict";
 class Todo {
-    constructor(content, done) {
+    constructor(content, done = null) {
         this.content = content;
         this.done = done;
         this.innerId = this.makeId();
     }
     makeId() {
-        let pattern = [2, 1, 1, 1, 3];
+        const pattern = [2, 1, 1, 1, 3];
         let id = "";
         for (let i = 0; i < pattern.length; i++) {
             if (i > 0) {
@@ -5984,7 +5985,7 @@ class Todo {
         return this.innerId;
     }
     get doneForSerialize() {
-        if (this.done() == null) {
+        if (this.done == null) {
             return this.doneTemp;
         }
         else {
@@ -6005,9 +6006,12 @@ class TodoStore {
         this.localSave = true;
     }
     load() {
-        let loaded = [];
         console.log("ロード手前。");
-        let json = localStorage.getItem(TodoStore.KEY);
+        let loaded = [];
+        const json = null;
+        if (this.localSave) {
+            localStorage.getItem(TodoStore.KEY);
+        }
         console.log("ロード後。");
         if (this.localSave && json !== null) {
             console.log("json:" + json);
@@ -6015,11 +6019,11 @@ class TodoStore {
         }
         return loaded;
     }
-    save(history) {
-        console.log("セーブ前、件数" + history.length);
+    save(todos) {
+        console.log("セーブ前、件数" + todos.length);
+        const json = JSON.stringify(todos);
+        console.log("json:" + json);
         if (this.localSave) {
-            let json = JSON.stringify(history);
-            console.log("json:" + json);
             localStorage.setItem(TodoStore.KEY, json);
         }
     }
