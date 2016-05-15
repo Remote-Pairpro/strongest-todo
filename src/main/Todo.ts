@@ -11,7 +11,7 @@ export default class Todo {
 
     public constructor(
         public content: string
-        , public done: KnockoutObservable<boolean>
+        , public done: KnockoutObservable<boolean> = null
     ) {
         this.innerId = this.makeId();
     }
@@ -41,7 +41,7 @@ export default class Todo {
     }
 
     public get doneForSerialize():boolean {
-        if (this.done() == null) {
+        if (this.done == null) {
             return this.doneTemp;
         } else {
             return this.done();
