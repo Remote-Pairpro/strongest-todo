@@ -13,9 +13,9 @@ export default class TodoStore {
     public localSave: boolean = true;
 
     public load(): Todo[] {
-        let loaded: Todo[] = [];
         console.log("ロード手前。");
-        let json: string = null;
+        let loaded: Todo[] = [];
+        const json: string = null;
         if (this.localSave) {
             localStorage.getItem(TodoStore.KEY);
         }
@@ -30,7 +30,7 @@ export default class TodoStore {
     public save(todos: Todo[]) {
         console.log("セーブ前、件数" + todos.length);
         // JSON文字列にしてlocalStrage保存。
-        let json: string = JSON.stringify(todos);
+        const json: string = JSON.stringify(todos);
         console.log("json:" + json);
         if (this.localSave) {
             localStorage.setItem(TodoStore.KEY, json);

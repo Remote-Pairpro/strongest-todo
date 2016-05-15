@@ -18,8 +18,8 @@ describe("StrongestTodo", () => {
     });
 
     it("Todoを追加出来る", () => {
-        let sut = createSut();
-        let todo = new Todo("会いたかった", ko.observable(true));
+        const sut = createSut();
+        const todo = new Todo("会いたかった", ko.observable(true));
         assert.equal(sut.todoList().length, 0);
 
         sut.add(todo);

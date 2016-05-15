@@ -6,7 +6,7 @@
 export default class Todo {
 
     private innerId: string;
-    
+
     private doneTemp: boolean;
 
     public constructor(
@@ -18,7 +18,7 @@ export default class Todo {
 
     // UUID(っぽいもの)を作る。
     private makeId(): string {
-        let pattern: number[] = [2, 1, 1, 1, 3];
+        const pattern: number[] = [2, 1, 1, 1, 3];
         let id: string = "";
         for (let i = 0; i < pattern.length; i++) {
             if (i > 0) {
@@ -40,7 +40,7 @@ export default class Todo {
         return this.innerId;
     }
 
-    public get doneForSerialize():boolean {
+    public get doneForSerialize(): boolean {
         if (this.done == null) {
             return this.doneTemp;
         } else {

@@ -14,14 +14,14 @@ describe("StrongestTodoViewModel", () => {
     }
 
     it("画面の初期状態は入力欄空、リスト空である", () => {
-        let sut = createSut();
+        const sut = createSut();
         assert.equal(sut.todoList().length, 0);
         assert.equal(sut.newContent(), "");
         assert.equal(/[0-9]*\.[0-9]*\.[0-9]*/.test(sut.appVersion), true);
     });
 
     it("画面に入力したTODOが追加ボタンによりリストにたされ、入力域はクリアされる", () => {
-        let sut = createSut();
+        const sut = createSut();
         sut.newContent("新しいTODO");
 
         assert.equal(sut.todoList().length, 0);
@@ -34,7 +34,7 @@ describe("StrongestTodoViewModel", () => {
     });
 
     it("入力域が空の状態なら、ボタン(orEnter)押されてもTODOが追加されない", () => {
-        let sut = createSut();
+        const sut = createSut();
 
         sut.newContent("");
         assert.equal(sut.todoList().length, 0);
@@ -45,8 +45,7 @@ describe("StrongestTodoViewModel", () => {
     });
 
     it("フィルターのチェックボックスがOnなら表示件数が減る", () => {
-        let sut = createSut();
-        
+        const sut = createSut();
         // 初期条件。TODO追加。
         sut.newContent("1st");
         sut.addTodo();
@@ -73,15 +72,15 @@ describe("StrongestTodoViewModel", () => {
     });
 
     it("入力域が空か否かを判定出来る", () => {
-        let sut = createSut();
+        const sut = createSut();
         sut.newContent("");
-        assert.equal(sut.existNewContent(),false);
+        assert.equal(sut.existNewContent(), false);
         // 文字を入力してみる。
         sut.newContent("1");
-        assert.equal(sut.existNewContent(),true);
+        assert.equal(sut.existNewContent(), true);
         // さらに入力してみる。
         sut.newContent("12");
-        assert.equal(sut.existNewContent(),true);
+        assert.equal(sut.existNewContent(), true);
     });
 
     it("Todoを指定した削除が出来る", () => {
@@ -94,7 +93,7 @@ describe("StrongestTodoViewModel", () => {
         sut.newContent("3rd");
         sut.addTodo();
         // ふたつ目を選択し…
-        const seccond : Todo = sut.todos.todoList()[1];
+        const seccond: Todo = sut.todos.todoList()[1];
         assert.equal(seccond.content, "2nd");
         // 削除してみる
         sut.removeTodo(seccond);
