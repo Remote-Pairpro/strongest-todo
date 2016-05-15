@@ -9,7 +9,7 @@ describe("StrongestTodoViewModel", () => {
 
     // ヘルパ関数。StrongestTodoViewModel作成＆初期化。
     function createSut(): StrongestTodoViewModel {
-        return new StrongestTodoViewModel(ko);
+        return new StrongestTodoViewModel(ko, false);
     }
 
     it("画面の初期状態は入力欄空、リスト空である", () => {

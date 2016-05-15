@@ -21,16 +21,16 @@ export default class StrongestTodoViewModel {
     private store = new TodoStore();
     
     // コンストラクタ
-    public constructor(ko: KnockoutStatic) {
+    public constructor(ko: KnockoutStatic, onSave: boolean = true) {
         this.ko = ko;
 
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
 
         // 本体初期化。
+        this.store.localSave = onSave;
         const lastTodos: Todo[] = this.store.load();
-
-        lastTodos.forEach((v:Todo, i) => {
+        lastTodos.forEach((v: Todo, i) => {
             v.done = ko.observable(v.doneForSerialize);
         });
         this.todos = new StrongestTodo(ko.observableArray(lastTodos));
@@ -40,7 +40,7 @@ export default class StrongestTodoViewModel {
             return this.filterTodo();
         }, this);
     }
-
+    
     // 画面上部の入力域の内容で、Todoを一つ足す。
     public addTodo() {
         let content = this.newContent().trim();
@@ -67,7 +67,7 @@ export default class StrongestTodoViewModel {
     public createTodo(content: string, done: boolean): Todo {
         return new Todo(content, this.ko.observable(done));
     }
-    
+
     public removeTodo = (todo: Todo) => {
         this.todos.remove(todo);
         this.save();
@@ -81,7 +81,7 @@ export default class StrongestTodoViewModel {
     /**
      * 追加ボタンの制御
      */
-    public existNewContent():boolean{
+    public existNewContent(): boolean {
         return this.newContent().length > 0;
     }
         
@@ -91,4 +91,5 @@ export default class StrongestTodoViewModel {
     private save() {
         this.store.save(this.todoList());
     }
+
 }
