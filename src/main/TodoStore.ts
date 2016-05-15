@@ -27,12 +27,12 @@ export default class TodoStore {
         return loaded;
     }
 
-    public save(history: Todo[]) {
-        console.log("セーブ前、件数" + history.length);
+    public save(todos: Todo[]) {
+        console.log("セーブ前、件数" + todos.length);
+        // JSON文字列にしてlocalStrage保存。
+        let json: string = JSON.stringify(todos);
+        console.log("json:" + json);
         if (this.localSave) {
-            // JSON文字列にしてlocalStrage保存。
-            let json: string = JSON.stringify(history);
-            console.log("json:" + json);
             localStorage.setItem(TodoStore.KEY, json);
         }
     }
