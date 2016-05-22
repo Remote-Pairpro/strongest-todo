@@ -5913,7 +5913,6 @@ class StrongestTodoViewModel {
         this.save = () => {
             this.todos.todoList().forEach((v, i) => { v.doneForSerialize = String(v.done()); });
             this.store.save(this.todoList());
-            return true;
         };
         this.ko = ko;
         this.newContent = this.ko.observable("");
