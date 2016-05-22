@@ -5919,14 +5919,11 @@ class StrongestTodoViewModel {
         this.hideDoneTasks = this.ko.observable(false);
         this.store.localSave = onSave;
         const lastTodos = this.store.load();
+        const todos = [];
         lastTodos.forEach((v, i) => {
-            v.done = ko.observable(this.toBool(v.doneForSerialize));
-            v.done.subscribe(() => {
-                console.log("ここは、constructor()のtodoのsubscrive（）です。");
-                this.save();
-            });
+            todos.push(this.createTodo(v.content, this.toBool(v.doneForSerialize)));
         });
-        this.todos = new StrongestTodo_1.default(ko.observableArray(lastTodos));
+        this.todos = new StrongestTodo_1.default(ko.observableArray(todos));
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
@@ -5952,7 +5949,6 @@ class StrongestTodoViewModel {
     createTodo(content, done) {
         const doneObs = this.ko.observable(done);
         doneObs.subscribe((newValue) => {
-            console.log("ここは、createTodo()のtodoのsubscrive（）です。");
             this.save();
         });
         return new Todo_1.default(content, doneObs);
