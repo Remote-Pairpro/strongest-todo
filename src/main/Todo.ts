@@ -38,5 +38,14 @@ export default class Todo {
     public get id() {
         return this.innerId;
     }
-
+    
+    // public toJSON():any {
+    //     const o = new Object();
+    //     for (const propertyName in this) {
+    //         if (typeof (this[propertyName]) === 'boolean') {
+    //             o[propertyName] = this[propertyName]; 
+    //         } else if(typeof (this[propertyName]) === 'number') {
+    //         }
+    //     }
+    // }
 }
