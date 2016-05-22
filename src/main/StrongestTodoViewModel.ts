@@ -33,6 +33,10 @@ export default class StrongestTodoViewModel {
         // 復元した状態では「doneがovservableになってない」ため、ダミーのプロパティから移し替える。
         lastTodos.forEach((v: Todo, i) => {
             v.done = ko.observable(this.toBool(v.doneForSerialize));
+            v.done.subscribe(() => {
+                console.log("ここは、constructor()のtodoのsubscrive（）です。");
+               this.save(); 
+            });
         });
         this.todos = new StrongestTodo(ko.observableArray(lastTodos));
         
@@ -40,6 +44,7 @@ export default class StrongestTodoViewModel {
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
+               
     }
     
     // 画面上部の入力域の内容で、Todoを一つ足す。
@@ -66,7 +71,12 @@ export default class StrongestTodoViewModel {
     
     // 新規Todoを作成し、返す。(Observable注入)
     public createTodo(content: string, done: boolean): Todo {
-        return new Todo(content, this.ko.observable(done));
+        const doneObs: KnockoutObservable<boolean> = this.ko.observable(done);
+        doneObs.subscribe((newValue: boolean) => {
+            console.log("ここは、createTodo()のtodoのsubscrive（）です。");
+            this.save();
+        })
+        return new Todo(content, doneObs);
     }
 
     public removeTodo = (todo: Todo) => {
@@ -97,10 +107,11 @@ export default class StrongestTodoViewModel {
     /**
      * 現在のTodo(明細だけ)の情報を永続化。
      */
-    private save() {
+    public save = ():boolean => {
         // 保存用のプロパティにdoneの内容を移植(Observableでは保存出来ないため)
         this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
+        return true;
     }
 
 }
