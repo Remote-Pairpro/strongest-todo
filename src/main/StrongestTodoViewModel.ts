@@ -107,11 +107,10 @@ export default class StrongestTodoViewModel {
     /**
      * 現在のTodo(明細だけ)の情報を永続化。
      */
-    public save = ():boolean => {
+    public save = () => {
         // 保存用のプロパティにdoneの内容を移植(Observableでは保存出来ないため)
         this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
-        return true;
     }
 
 }
