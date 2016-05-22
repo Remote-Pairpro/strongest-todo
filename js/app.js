@@ -5910,6 +5910,11 @@ class StrongestTodoViewModel {
             this.todos.remove(todo);
             this.save();
         };
+        this.save = () => {
+            this.todos.todoList().forEach((v, i) => { v.doneForSerialize = String(v.done()); });
+            this.store.save(this.todoList());
+            return true;
+        };
         this.ko = ko;
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
@@ -5917,6 +5922,10 @@ class StrongestTodoViewModel {
         const lastTodos = this.store.load();
         lastTodos.forEach((v, i) => {
             v.done = ko.observable(this.toBool(v.doneForSerialize));
+            v.done.subscribe(() => {
+                console.log("ここは、constructor()のtodoのsubscrive（）です。");
+                this.save();
+            });
         });
         this.todos = new StrongestTodo_1.default(ko.observableArray(lastTodos));
         this.filterdTodoList = this.ko.computed(() => {
@@ -5942,7 +5951,12 @@ class StrongestTodoViewModel {
         });
     }
     createTodo(content, done) {
-        return new Todo_1.default(content, this.ko.observable(done));
+        const doneObs = this.ko.observable(done);
+        doneObs.subscribe((newValue) => {
+            console.log("ここは、createTodo()のtodoのsubscrive（）です。");
+            this.save();
+        });
+        return new Todo_1.default(content, doneObs);
     }
     get appVersion() {
         return (new AppVersion_1.default()).version;
@@ -5952,10 +5966,6 @@ class StrongestTodoViewModel {
     }
     toBool(value) {
         return value == String(true);
-    }
-    save() {
-        this.todos.todoList().forEach((v, i) => { v.doneForSerialize = String(v.done()); });
-        this.store.save(this.todoList());
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
