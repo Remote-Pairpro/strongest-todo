@@ -31,14 +31,13 @@ export default class StrongestTodoViewModel {
         this.store.localSave = onSave;
         const lastTodos: Todo[] = this.store.load();
         // 復元した状態では「doneがovservableになってない」ため、ダミーのプロパティから移し替える。
+        // ついでに「クリックした時のイベント」を仕込みたいので、通常で「追加」された時と同じ動きを指せる。
+        const todos: Todo[] = [];
         lastTodos.forEach((v: Todo, i) => {
-            v.done = ko.observable(this.toBool(v.doneForSerialize));
-            v.done.subscribe(() => {
-                console.log("ここは、constructor()のtodoのsubscrive（）です。");
-               this.save(); 
-            });
+            todos.push(this.createTodo(v.content
+                        ,this.toBool(v.doneForSerialize)));
         });
-        this.todos = new StrongestTodo(ko.observableArray(lastTodos));
+        this.todos = new StrongestTodo(ko.observableArray(todos));
         
         // フィルターイベント
         this.filterdTodoList = this.ko.computed(() => {
@@ -72,10 +71,11 @@ export default class StrongestTodoViewModel {
     // 新規Todoを作成し、返す。(Observable注入)
     public createTodo(content: string, done: boolean): Todo {
         const doneObs: KnockoutObservable<boolean> = this.ko.observable(done);
+        // 子（Todoオブジェクト）の変更の時も、
+        // 親(つまり自分,ViewModel)のイベントを起こしたいので、ここで登録。
         doneObs.subscribe((newValue: boolean) => {
-            console.log("ここは、createTodo()のtodoのsubscrive（）です。");
             this.save();
-        })
+        });
         return new Todo(content, doneObs);
     }
 
