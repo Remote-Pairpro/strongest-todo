@@ -1,4 +1,4 @@
-/// <reference path="../typings/main.d.ts" />
+/// <reference path="bindingHandlers.d.ts" />
 
 import AppVersion from './AppVersion';
 import StrongestTodo from './StrongestTodo';
@@ -19,6 +19,7 @@ export default class StrongestTodoViewModel {
 
     // ローカル保存してくれるヤーツ。
     private store = new TodoStore();
+    
     
     // コンストラクタ
     public constructor(ko: KnockoutStatic, onSave: boolean = true) {
@@ -43,7 +44,9 @@ export default class StrongestTodoViewModel {
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
-               
+        
+        ko.bindingHandlers.fadeVisible = {
+        };
     }
     
     // 画面上部の入力域の内容で、Todoを一つ足す。
@@ -112,5 +115,18 @@ export default class StrongestTodoViewModel {
         this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
     }
+}
 
+ko.bindingHandlers.fadeVisible = {
+    init:  (element:any, valueAccessor:any) => {
+        // 最初に、値に応じて即座にエレメントの 可視/不可視 を設定します。
+        var value = valueAccessor();
+        // Observable かどうかがわからない値は、"unwrapObservable" を使って処理することができます。
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function(element:any, valueAccessor:any) {
+        // 値の変化に応じて、ゆっくりと 可視/不可視 の切り替えを行います。
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+    }
 }
