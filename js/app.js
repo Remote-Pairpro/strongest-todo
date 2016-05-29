@@ -5927,6 +5927,7 @@ class StrongestTodoViewModel {
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
+        ko.bindingHandlers.fadeVisible = {};
     }
     addTodo() {
         const content = this.newContent().trim();
@@ -5965,6 +5966,16 @@ class StrongestTodoViewModel {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StrongestTodoViewModel;
+ko.bindingHandlers.fadeVisible = {
+    init: (element, valueAccessor) => {
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function (element, valueAccessor) {
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+    }
+};
 
 },{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5,"./TodoStore":6}],5:[function(require,module,exports){
 "use strict";
@@ -6005,23 +6016,18 @@ class TodoStore {
         this.localSave = true;
     }
     load() {
-        console.log("ロード手前。");
         let loaded = [];
         let json = null;
         if (this.localSave) {
             json = localStorage.getItem(TodoStore.KEY);
         }
         if (json !== null) {
-            console.log("ロード後。");
-            console.log("json:" + json);
             loaded = JSON.parse(json);
         }
         return loaded;
     }
     save(todos) {
-        console.log("セーブ前、件数" + todos.length);
         const json = JSON.stringify(todos);
-        console.log("json:" + json);
         if (this.localSave) {
             localStorage.setItem(TodoStore.KEY, json);
         }
