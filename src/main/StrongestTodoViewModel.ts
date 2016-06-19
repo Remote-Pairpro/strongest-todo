@@ -127,16 +127,16 @@ export default class StrongestTodoViewModel {
     }
 }
 
-ko.bindingHandlers.fadeVisible = {
-    init:  (element:any, valueAccessor:any) => {
-        // 最初に、値に応じて即座にエレメントの 可視/不可視 を設定します。
-        var value = valueAccessor();
-        // Observable かどうかがわからない値は、"unwrapObservable" を使って処理することができます。
-        $(element).toggle(ko.utils.unwrapObservable(value));
-    },
-    update: function(element:any, valueAccessor:any) {
-        // 値の変化に応じて、ゆっくりと 可視/不可視 の切り替えを行います。
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
-    }
-}
+// ko.bindingHandlers.fadeVisible = {
+//     init:  (element:any, valueAccessor:any) => {
+//         // 最初に、値に応じて即座にエレメントの 可視/不可視 を設定します。
+//         var value = valueAccessor();
+//         // Observable かどうかがわからない値は、"unwrapObservable" を使って処理することができます。
+//         $(element).toggle(ko.utils.unwrapObservable(value));
+//     },
+//     update: function(element:any, valueAccessor:any) {
+//         // 値の変化に応じて、ゆっくりと 可視/不可視 の切り替えを行います。
+//         var value = valueAccessor();
+//         ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+//     }
+// }
