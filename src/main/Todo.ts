@@ -9,14 +9,15 @@ export default class Todo {
 
     public constructor(
         public content: string
-        , public done: KnockoutObservable<boolean>
+        , public done: KnockoutObservable<boolean> = null
+        , public doneForSerialize: string = "false"  // JSONによるSerializeのための領域、普段は使わない
     ) {
         this.innerId = this.makeId();
     }
 
     // UUID(っぽいもの)を作る。
     private makeId(): string {
-        let pattern: number[] = [2, 1, 1, 1, 3];
+        const pattern: number[] = [2, 1, 1, 1, 3];
         let id: string = "";
         for (let i = 0; i < pattern.length; i++) {
             if (i > 0) {
@@ -37,5 +38,14 @@ export default class Todo {
     public get id() {
         return this.innerId;
     }
-
+    
+    // public toJSON():any {
+    //     const o = new Object();
+    //     for (const propertyName in this) {
+    //         if (typeof (this[propertyName]) === 'boolean') {
+    //             o[propertyName] = this[propertyName]; 
+    //         } else if(typeof (this[propertyName]) === 'number') {
+    //         }
+    //     }
+    // }
 }

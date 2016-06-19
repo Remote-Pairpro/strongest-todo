@@ -54,12 +54,13 @@
                     <tr data-bind="dragZone: { name: 'scroll-while-dragging',
                                        dragStart: $parent.dragStart,
                                        dragEnd: $parent.dragEnd
-                                   }">
+                                   }"
+                    draggable="true">
                         <td class="text-center ">
                             <input type="checkbox" data-bind="checked: done " />
                         </td>
                         <td class="text-left ">
-                            <span data-bind="text: content "></span>
+                            <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
                         </td>
                         <td class="text-center ">
                             <a href='#' data-bind="click: $parent.removeTodo">
