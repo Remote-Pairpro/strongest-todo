@@ -45,8 +45,21 @@ export default class StrongestTodoViewModel {
             return this.filterTodo();
         }, this);
         
+        // フェードイン・フェードアウト、みたいなの。
         ko.bindingHandlers.fadeVisible = {
-        };
+            init:  (element:any, valueAccessor:any) => {
+                // 最初に、値に応じて即座にエレメントの 可視/不可視 を設定します。
+                var value = valueAccessor();
+                // Observable かどうかがわからない値は、"unwrapObservable" を使って処理することができます。
+                $(element).toggle(ko.utils.unwrapObservable(value));
+            },
+            update: function(element:any, valueAccessor:any) {
+                // 値の変化に応じて、ゆっくりと 可視/不可視 の切り替えを行います。
+                var value = valueAccessor();
+                ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+            }
+        }
+
     }
     
     // 画面上部の入力域の内容で、Todoを一つ足す。
@@ -115,18 +128,19 @@ export default class StrongestTodoViewModel {
         this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
         this.store.save(this.todoList());
     }
-}
-
-ko.bindingHandlers.fadeVisible = {
-    init:  (element:any, valueAccessor:any) => {
-        // 最初に、値に応じて即座にエレメントの 可視/不可視 を設定します。
-        var value = valueAccessor();
-        // Observable かどうかがわからない値は、"unwrapObservable" を使って処理することができます。
-        $(element).toggle(ko.utils.unwrapObservable(value));
-    },
-    update: function(element:any, valueAccessor:any) {
-        // 値の変化に応じて、ゆっくりと 可視/不可視 の切り替えを行います。
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+    
+    public beforeRemoveEvent = (elem:any) => {
+        if (elem.nodeType === 1) {
+            console.log("beforeRemoveEvent()");
+            $(elem).fadeOut(500, function(){ $(elem).remove() });
+        }
     }
+
+    public afterAddEvent = (elem:any) => {
+        if (elem.nodeType === 1) {
+            console.log("afterAddEvent()");
+            $(elem).hide().fadeIn(500);
+        }
+    }
+
 }

@@ -50,7 +50,15 @@
                         <th class="text-center ">削除</th>
                     </tr>
                 </thead>
-                <tbody data-bind='foreach: filterdTodoList'>
+                
+                <!-- <tbody data-bind='foreach: filterdTodoList'> -->
+
+                <tbody data-bind='template: {
+                            foreach: filterdTodoList,
+                            beforeRemove: beforeRemoveEvent,
+                            afterAdd: afterAddEvent
+                }'>
+
                     <tr draggable="true">
                         <td class="text-center ">
                             <input type="checkbox" data-bind="checked: done " />
