@@ -54,21 +54,23 @@
                 </div>
             </div>
 
-            <div class="row" data-bind='template: {
-                            foreach: filterdTodoList,
-                            beforeRemove: beforeRemoveEvent,
-                            afterAdd: afterAddEvent
-                }'>
-                <div class="col-xs-2">
-                    <input type="checkbox" data-bind="checked: done " />
-                </div>
-                <div class="col-xs-8 text-left">
-                    <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
-                </div>
-                <div class="col-xs-2">
-                    <a href='#' data-bind="click: $parent.removeTodo">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                    </a>
+            <div data-bind='template: {
+                                foreach: filterdTodoList,
+                                beforeRemove: beforeRemoveEvent,
+                                afterAdd: afterAddEvent
+            }'>
+                <div id= "" class="row">
+                    <div class="col-xs-2">
+                        <input type="checkbox" data-bind="checked: done " />
+                    </div>
+                    <div class="col-xs-8 text-left">
+                        <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
+                    </div>
+                    <div class="col-xs-2">
+                        <a href='#' data-bind="click: $parent.removeTodo">
+                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
