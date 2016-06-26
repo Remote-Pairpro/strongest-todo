@@ -132,14 +132,14 @@ export default class StrongestTodoViewModel {
     public beforeRemoveEvent = (elem:any) => {
         if (elem.nodeType === 1) {
             console.log("beforeRemoveEvent()");
-            $(elem).fadeOut(500, function(){ $(elem).remove() });
+            $(elem).slideUp(250, function(){ $(elem).remove() });
         }
     }
 
     public afterAddEvent = (elem:any) => {
         if (elem.nodeType === 1) {
             console.log("afterAddEvent()");
-            $(elem).hide().fadeIn(500);
+            $(elem).hide().slideDown(250);
         }
     }
 

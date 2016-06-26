@@ -42,38 +42,35 @@
     <section class="container text-center">
 
         <div class="panel panel-default ">
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th class="text-center ">Done</th>
-                        <th class="text-left ">内容</th>
-                        <th class="text-center ">削除</th>
-                    </tr>
-                </thead>
-                
-                <!-- <tbody data-bind='foreach: filterdTodoList'> -->
+            <div class="row" >
+                <div class="col-xs-2">
+                    Done
+                </div>
+                <div class="col-xs-8">
+                    内容
+                </div>
+                <div class="col-xs-2">
+                    削除
+                </div>
+            </div>
 
-                <tbody data-bind='template: {
+            <div class="row" data-bind='template: {
                             foreach: filterdTodoList,
                             beforeRemove: beforeRemoveEvent,
                             afterAdd: afterAddEvent
                 }'>
-
-                    <tr draggable="true">
-                        <td class="text-center ">
-                            <input type="checkbox" data-bind="checked: done " />
-                        </td>
-                        <td class="text-left ">
-                            <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
-                        </td>
-                        <td class="text-center ">
-                            <a href='#' data-bind="click: $parent.removeTodo">
+                <div class="col-xs-2">
+                    <input type="checkbox" data-bind="checked: done " />
+                </div>
+                <div class="col-xs-8 text-left">
+                    <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
+                </div>
+                <div class="col-xs-2">
+                    <a href='#' data-bind="click: $parent.removeTodo">
                                 <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </a>
+                </div>
+            </div>
         </div>
 
     </section>
