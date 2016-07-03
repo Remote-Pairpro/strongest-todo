@@ -5914,6 +5914,27 @@ class StrongestTodoViewModel {
             this.todos.todoList().forEach((v, i) => { v.doneForSerialize = String(v.done()); });
             this.store.save(this.todoList());
         };
+        this.beforeRemoveEvent = (elem) => {
+            if (elem.nodeType === 1) {
+                console.log("beforeRemoveEvent()");
+                $(elem).slideUp(250, function () { $(elem).remove(); });
+            }
+        };
+        this.afterAddEvent = (elem) => {
+            if (elem.nodeType === 1) {
+                console.log("afterAddEvent()");
+                $(elem).hide().slideDown(250);
+            }
+        };
+        this.celebration = (todo) => {
+            if (todo.done()) {
+                $("#celebrationPanel").fadeIn(250);
+                setTimeout(function () {
+                    $("#celebrationPanel").fadeOut(250);
+                }, 2000);
+            }
+            return true;
+        };
         this.ko = ko;
         this.newContent = this.ko.observable("");
         this.hideDoneTasks = this.ko.observable(false);
@@ -5927,7 +5948,16 @@ class StrongestTodoViewModel {
         this.filterdTodoList = this.ko.computed(() => {
             return this.filterTodo();
         }, this);
-        ko.bindingHandlers.fadeVisible = {};
+        ko.bindingHandlers.fadeVisible = {
+            init: (element, valueAccessor) => {
+                var value = valueAccessor();
+                $(element).toggle(ko.utils.unwrapObservable(value));
+            },
+            update: function (element, valueAccessor) {
+                var value = valueAccessor();
+                ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
+            }
+        };
     }
     addTodo() {
         const content = this.newContent().trim();
@@ -5966,16 +5996,6 @@ class StrongestTodoViewModel {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = StrongestTodoViewModel;
-ko.bindingHandlers.fadeVisible = {
-    init: (element, valueAccessor) => {
-        var value = valueAccessor();
-        $(element).toggle(ko.utils.unwrapObservable(value));
-    },
-    update: function (element, valueAccessor) {
-        var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
-    }
-};
 
 },{"./AppVersion":2,"./StrongestTodo":3,"./Todo":5,"./TodoStore":6}],5:[function(require,module,exports){
 "use strict";

@@ -42,30 +42,37 @@
     <section class="container text-center">
 
         <div class="panel panel-default ">
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th class="text-center ">Done</th>
-                        <th class="text-left ">内容</th>
-                        <th class="text-center ">削除</th>
-                    </tr>
-                </thead>
-                <tbody data-bind='foreach: filterdTodoList'>
-                    <tr draggable="true">
-                        <td class="text-center ">
-                            <input type="checkbox" data-bind="checked: done " />
-                        </td>
-                        <td class="text-left ">
-                            <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
-                        </td>
-                        <td class="text-center ">
-                            <a href='#' data-bind="click: $parent.removeTodo">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row" >
+                <div class="col-xs-2">
+                    Done
+                </div>
+                <div class="col-xs-8">
+                    内容
+                </div>
+                <div class="col-xs-2">
+                    削除
+                </div>
+            </div>
+
+            <div data-bind='template: {
+                                foreach: filterdTodoList,
+                                beforeRemove: beforeRemoveEvent,
+                                afterAdd: afterAddEvent
+            }'>
+                <div id= "" class="row">
+                    <div class="col-xs-2">
+                        <input type="checkbox" data-bind="checked: done, click: $parent.celebration" />
+                    </div>
+                    <div class="col-xs-8 text-left">
+                        <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
+                    </div>
+                    <div class="col-xs-2">
+                        <a href='#' data-bind="click: $parent.removeTodo">
+                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </section>
@@ -75,6 +82,18 @@
     </footer>
 
     <script type='text/javascript' src='js/app.js'></script>
+
+    <style>
+      #celebrationPanel {
+        position:absolute;
+        left:50%;
+        top:20%;
+        margin-left:-150px;
+        display:none;
+      }
+    </style>
+
+    <div id="celebrationPanel"><img src="image/panpakapan.gif"></div>
 
 </body>
 
