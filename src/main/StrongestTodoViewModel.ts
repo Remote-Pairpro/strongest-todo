@@ -122,7 +122,7 @@ export default class StrongestTodoViewModel {
         
     /**
      * 現在のTodo(明細だけ)の情報を永続化。
-     */
+     */ 
     public save = () => {
         // 保存用のプロパティにdoneの内容を移植(Observableでは保存出来ないため)
         this.todos.todoList().forEach((v: Todo, i) => { v.doneForSerialize = String(v.done()); });
@@ -141,6 +141,19 @@ export default class StrongestTodoViewModel {
             console.log("afterAddEvent()");
             $(elem).hide().slideDown(250);
         }
+    }
+    
+    /**
+     * Doneしたら祝ってくれる(アニメーションgifを一定時間標示)
+     */
+    public celebration = (todo: Todo) =>  {
+        if (todo.done()) {
+            $("#celebrationPanel").fadeIn(250);
+            setTimeout(function (){
+                $("#celebrationPanel").fadeOut(250);
+            }, 2000);
+        }
+        return true;
     }
 
 }

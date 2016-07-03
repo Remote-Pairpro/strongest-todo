@@ -61,7 +61,7 @@
             }'>
                 <div id= "" class="row">
                     <div class="col-xs-2">
-                        <input type="checkbox" data-bind="checked: done " />
+                        <input type="checkbox" data-bind="checked: done, click: $parent.celebration" />
                     </div>
                     <div class="col-xs-8 text-left">
                         <span data-bind="text: content, style:{textDecoration: done() ? 'line-through':'none'}"></span>
@@ -82,6 +82,18 @@
     </footer>
 
     <script type='text/javascript' src='js/app.js'></script>
+
+    <style>
+      #celebrationPanel {
+        position:absolute;
+        left:50%;
+        top:20%;
+        margin-left:-150px;
+        display:none;
+      }
+    </style>
+
+    <div id="celebrationPanel"><img src="image/panpakapan.gif"></div>
 
 </body>
 
