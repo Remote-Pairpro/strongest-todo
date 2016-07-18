@@ -28,14 +28,14 @@ export default class StrongestTodo {
     /**
      * TODOを指定位置に移動(指定したTODOの前に挿入)。
      */
-    public insertMove(src:Todo, target:Todo) {
+    public insertMove(src: Todo, target: Todo) {
         console.log("最初の件数:" + this.todoList().length);
         this.todoList.remove(src);
         console.log("削除後の件数:" + this.todoList().length);
-        const i:number = this.todoList.indexOf(target);
-        console.log("挿入位置:" + i);
-        this.todoList.splice(i,0,src);
-        console.log("挿入後件数:" +  this.todoList().length);
+        const k: number = this.todoList.indexOf(target);
+        console.log("挿入位置:" + k);
+        this.todoList.splice(k, 0, src);
+        console.log("挿入後件数:" + this.todoList().length);
     }
 
 }
