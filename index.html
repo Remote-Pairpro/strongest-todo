@@ -59,7 +59,15 @@
                                 beforeRemove: beforeRemoveEvent,
                                 afterAdd: afterAddEvent
             }'>
-                <div id= "" class="row" draggable="true" dropzone="move">
+                <div class="row" draggable="true" dropzone="move"
+                    data-bind="event: { 
+                        dragstart: $parent.dragStart,
+                        drop: $parent.drop,
+                        dragover: $parent.dragOver,
+                        dragenter: $parent.dragEnter,
+                        dragleave: $parent.dragLeave
+                    }"
+                >
                     <div class="col-xs-2">
                         <input type="checkbox" data-bind="checked: done, click: $parent.celebration" />
                     </div>
@@ -82,58 +90,6 @@
     </footer>
 
     <script type='text/javascript' src='js/app.js'></script>
-    
-    <script type='text/javascript'>
-function handleDragStart(e) {
-    // 重要なのはこのイベントと…
-    console.log('dragStart');
-    
-    // Target (this) element is the source node.
-    // なんかアイテムをセット
-
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', "テスト");
-    console.log(e);
-}
-
-function handleDragOver(e) {
-//    console.log('dragOver');
-    e.preventDefault();
-}
-
-function handleDragEnter(e) {
-//    console.log('dragEnter');
-    e.preventDefault();
-}
-
-function handleDragLeave(e) {
-//    console.log('dragLeave');
-//    console.log(e);
-    e.preventDefault();
-}
-
-function handleDrop(e) {
-    // 重要なのはこのイベントだけなんだが…。
-    // このイベントだけがおこらないので話にならない。
-    console.log('drop');
-    console.log(e);
-}
-
-function handleDragEnd(e) {
-    console.log('DragEnd');
-    console.log(e);
-}
-
-var cols = document.querySelectorAll('.row');
-[].forEach.call(cols, function(col) {
-  col.addEventListener('dragstart', handleDragStart, false);
-  col.addEventListener('dragenter', handleDragEnter, false);
-  col.addEventListener('dragover', handleDragOver, false);
-  col.addEventListener('dragleave', handleDragLeave, false);
-  col.addEventListener('drop', handleDrop, false);
-  col.addEventListener('dragend', handleDragEnd, false);
-});
-    </script>
 
     <style>
       #celebrationPanel {
