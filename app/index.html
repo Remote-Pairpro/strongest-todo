@@ -63,9 +63,9 @@
                     data-bind="event: { 
                         dragstart: $parent.dragStart,
                         drop: $parent.drop,
-                        dragover: $parent.dragOver,
-                        dragenter: $parent.dragEnter,
-                        dragleave: $parent.dragLeave
+                        dragover: $parent.dragEventDummy,
+                        dragenter: $parent.dragEventDummy,
+                        dragleave: $parent.dragEventDummy
                     }"
                 >
                     <div class="col-xs-2">

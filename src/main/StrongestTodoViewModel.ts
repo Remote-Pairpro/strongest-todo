@@ -162,19 +162,13 @@ export default class StrongestTodoViewModel {
     
     public dragStart = (item:Todo):boolean => {
         console.log("dragStart");
-        console.log(item);
         // ドラッグしているアイテムを一旦プロパティに格納
         this.droppedTodo = item;
-        console.log("this.droppedTodo");
-        console.log(this.droppedTodo);
         return true;
     }
 
     public drop = (item:Todo):boolean => {
         console.log("drop");
-        console.log(item);
-        console.log("this.droppedTodo");
-        console.log(this.droppedTodo);
         // 今回、ドロップした先のTodoと入れ替え
         if (this.droppedTodo != null && item != null && this.droppedTodo != item) {
             this.todos.insertMove(this.droppedTodo , item);
@@ -182,20 +176,8 @@ export default class StrongestTodoViewModel {
         return true;
     }
     
+    public dragEventDummy(d,e) {
+        e.preventDefault();
+    }
     
-    public dragOver(d,e) {
-        console.log("dragOver");
-        e.preventDefault();
-    }
-
-    public dragEnter(d,e) {
-        console.log("dragEnter");
-        e.preventDefault();
-    }
-
-    public dragLeave(d,e) {
-        console.log("dragLeave");
-        e.preventDefault();
-    }
-
 }
