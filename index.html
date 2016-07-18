@@ -42,7 +42,7 @@
     <section class="container text-center">
 
         <div class="panel panel-default ">
-            <div class="row" >
+            <div class="row">
                 <div class="col-xs-2">
                     Done
                 </div>
@@ -59,7 +59,7 @@
                                 beforeRemove: beforeRemoveEvent,
                                 afterAdd: afterAddEvent
             }'>
-                <div id= "" class="row">
+                <div id= "" class="row" draggable="true" dropzone="move">
                     <div class="col-xs-2">
                         <input type="checkbox" data-bind="checked: done, click: $parent.celebration" />
                     </div>
@@ -82,6 +82,55 @@
     </footer>
 
     <script type='text/javascript' src='js/app.js'></script>
+    
+    <script type='text/javascript'>
+function handleDragStart(e) {
+    // 重要なのはこのイベントと…
+    console.log('dragStart');
+    console.log(e);
+    
+    // Target (this) element is the source node.
+    // なんかアイテムをセット
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e) {
+//    console.log('dragOver');
+}
+
+function handleDragEnter(e) {
+//    console.log('dragEnter');
+}
+
+function handleDragLeave(e) {
+//    console.log('dragLeave');
+//    console.log(e);
+}
+
+function handleDrop(e) {
+    // 重要なのはこのイベントだけなんだが…。
+    // このイベントだけがおこらないので話にならない。
+    console.log('drop');
+    console.log(e);
+}
+
+function handleDragEnd(e) {
+    console.log('DragEnd');
+    console.log(e);
+}
+
+var cols = document.querySelectorAll('.row');
+[].forEach.call(cols, function(col) {
+  col.addEventListener('dragstart', handleDragStart, false);
+  col.addEventListener('dragenter', handleDragEnter, false);
+  col.addEventListener('dragover', handleDragOver, false);
+  col.addEventListener('dragleave', handleDragLeave, false);
+  col.addEventListener('drop', handleDrop, false);
+  col.addEventListener('dragend', handleDragEnd, false);
+});
+    </script>
 
     <style>
       #celebrationPanel {
