@@ -87,26 +87,29 @@
 function handleDragStart(e) {
     // 重要なのはこのイベントと…
     console.log('dragStart');
-    console.log(e);
     
     // Target (this) element is the source node.
     // なんかアイテムをセット
 
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
+    e.dataTransfer.setData('text/html', "テスト");
+    console.log(e);
 }
 
 function handleDragOver(e) {
 //    console.log('dragOver');
+    e.preventDefault();
 }
 
 function handleDragEnter(e) {
 //    console.log('dragEnter');
+    e.preventDefault();
 }
 
 function handleDragLeave(e) {
 //    console.log('dragLeave');
 //    console.log(e);
+    e.preventDefault();
 }
 
 function handleDrop(e) {
