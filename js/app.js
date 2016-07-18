@@ -5894,13 +5894,9 @@ class StrongestTodo {
         this.todoList.remove(todo);
     }
     insertMove(src, target) {
-        console.log("最初の件数:" + this.todoList().length);
         this.todoList.remove(src);
-        console.log("削除後の件数:" + this.todoList().length);
-        const i = this.todoList.indexOf(target);
-        console.log("挿入位置:" + i);
-        this.todoList.splice(i, 0, src);
-        console.log("挿入後件数:" + this.todoList().length);
+        const k = this.todoList.indexOf(target);
+        this.todoList.splice(k, 0, src);
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -5945,10 +5941,16 @@ class StrongestTodoViewModel {
             return true;
         };
         this.droppedTodo = null;
+        this.dragStart = (item) => {
+            console.log("dragStart");
+            this.droppedTodo = item;
+            return true;
+        };
         this.drop = (item) => {
             console.log("drop");
-            console.log(item);
-            this.todos.insertMove(this.droppedTodo, item);
+            if (this.droppedTodo != null && item != null && this.droppedTodo != item) {
+                this.todos.insertMove(this.droppedTodo, item);
+            }
             return true;
         };
         this.ko = ko;
@@ -6009,22 +6011,7 @@ class StrongestTodoViewModel {
     toBool(value) {
         return value == String(true);
     }
-    dragStart(item) {
-        console.log("dragStart");
-        console.log(item);
-        this.droppedTodo = item;
-        return true;
-    }
-    dragOver(d, e) {
-        console.log("dragOver");
-        e.preventDefault();
-    }
-    dragEnter(d, e) {
-        console.log("dragEnter");
-        e.preventDefault();
-    }
-    dragLeave(d, e) {
-        console.log("dragLeave");
+    dragEventDummy(d, e) {
         e.preventDefault();
     }
 }
