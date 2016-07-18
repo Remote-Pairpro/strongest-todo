@@ -155,5 +155,45 @@ export default class StrongestTodoViewModel {
         }
         return true;
     }
+        
+    // Drag & Drop 回り
+    
+    private droppedTodo:Todo = null;
+    
+    public dragStart(item:Todo):boolean {
+        console.log("dragStart");
+        console.log(item);
+        // ドラッグしているアイテムを一旦プロパティに格納
+        this.droppedTodo = item;
+        return true;
+    }
+
+    public drop = (item:Todo):boolean => {
+        console.log("drop");
+        console.log(item);
+        // 今回、ドロップした先のTodoと入れ替え
+        // if (this.droppedTodo != null 
+        //     && item != null
+        //     && this.droppedTodo != item) {
+            this.todos.insertMove(this.droppedTodo , item);
+        // }
+        return true;
+    }
+    
+    
+    public dragOver(d,e) {
+        console.log("dragOver");
+        e.preventDefault();
+    }
+
+    public dragEnter(d,e) {
+        console.log("dragEnter");
+        e.preventDefault();
+    }
+
+    public dragLeave(d,e) {
+        console.log("dragLeave");
+        e.preventDefault();
+    }
 
 }
