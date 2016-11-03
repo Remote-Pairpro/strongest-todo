@@ -1,0 +1,23 @@
+blockdiag {
+
+    // Set fontsize
+    default_fontsize = 14;
+    default_shape = roundedbox;  // default value is 'box'
+    default_node_color = lightblue;
+
+    "develop" -> 
+    "test-clean" -> 
+    "test-src-copy" -> 
+    "test-transpile" -> 
+    "test-retranspile-main"  -> 
+    "pre-test" -> 
+    "test" -> 
+    "brouserify"
+    ;
+
+    // 折り返し
+    "develop" -> "test-clean" [folded];
+    "test-transpile" -> "test-retranspile-main" [folded];
+    "test" -> "brouserify" [folded];
+
+}
